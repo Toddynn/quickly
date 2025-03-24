@@ -1,5 +1,7 @@
-import type { Metadata } from 'next';
+import Metadata from 'next';
+import { twMerge } from 'tailwind-merge';
 import './globals.css';
+import Providers from './providers';
 
 export const metadata: Metadata = {
 	title: 'Quickly',
@@ -12,8 +14,10 @@ export default function RootLayout({
 	children: React.ReactNode;
 }>) {
 	return (
-		<html lang="ptbr">
-			<body className={` antialiased`}>{children}</body>
+		<html suppressHydrationWarning lang="ptbr" className={twMerge('font-primary')}>
+			<body suppressHydrationWarning className={'scroll-smooth antialiased'}>
+				<Providers>{children}</Providers>
+			</body>
 		</html>
 	);
 }
