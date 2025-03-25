@@ -38,8 +38,8 @@ export default function AdminNavbar() {
 				],
 			}}
 		>
-			<NavbarContent className="sm:hidden" justify="start">
-				<NavbarMenuToggle aria-label={isOpen ? 'Close menu' : 'Open menu'} />
+			<NavbarContent justify="start">
+				<NavbarMenuToggle className="sm:hidden" aria-label={isOpen ? 'Close menu' : 'Open menu'} />
 				<NavbarBrand>
 					<AppLogo />
 					<p className="font-bold text-inherit">QUICKLY</p>
@@ -47,10 +47,6 @@ export default function AdminNavbar() {
 			</NavbarContent>
 
 			<NavbarContent className="hidden sm:flex gap-4" justify="center">
-				<NavbarBrand>
-					<AppLogo />
-					<p className="font-bold text-inherit">QUICKLY</p>
-				</NavbarBrand>
 				{menuItems.map((menu_item, idx) => (
 					<NavbarItem key={'pc-menu-item' + idx} isActive={pathName === menu_item.href}>
 						<Link href={menu_item.href}>{menu_item.label}</Link>
