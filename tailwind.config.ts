@@ -24,7 +24,8 @@ const config: Config = {
 			},
 			fontFamily: {
 				...defaultTheme.fontFamily,
-				dm_sans: ['var(--font-dm-sans)'],
+				dm_sans: ['var(--font-dm_sans)'],
+				gugi: ['var(--font-gugi)'],
 			},
 			animation: {
 				...defaultTheme.animation,
@@ -40,9 +41,10 @@ const config: Config = {
 			themes: {
 				light: {
 					colors: {
-						background: '#f5f5f5',
+						background: '#fff',
 					},
 				},
+				dark: { colors: { background: '#1A1A1A' } },
 			},
 		}),
 		tailwindScrollBar({ noCompatible: true }),
