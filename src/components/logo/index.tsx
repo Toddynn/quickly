@@ -1,12 +1,11 @@
-export default function AppLogo() {
+import { cn } from '@heroui/react';
+import { HTMLAttributes } from 'react';
+
+export default function AppLogo({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
 	return (
-		<svg fill="none" height="36" viewBox="0 0 32 32" width="36">
-			<path
-				clipRule="evenodd"
-				d="M17.6482 10.1305L15.8785 7.02583L7.02979 22.5499H10.5278L17.6482 10.1305ZM19.8798 14.0457L18.11 17.1983L19.394 19.4511H16.8453L15.1056 22.5499H24.7272L19.8798 14.0457Z"
-				fill="currentColor"
-				fillRule="evenodd"
-			/>
-		</svg>
+		<div className={cn('flex select-none items-center text-xl', className)} {...props}>
+			<h1 className="font-gugi text-success">Q</h1>
+			<p className="text-inherit font-gugi">uickly</p>
+		</div>
 	);
 }
