@@ -1,6 +1,7 @@
 'use client';
 
 import AppLogo from '@/components/logo';
+import { ThemeSwitcher } from '@/components/ui/theme-switch';
 import { Button, Navbar, NavbarBrand, NavbarContent, NavbarItem, NavbarMenu, NavbarMenuItem, NavbarMenuToggle, useDisclosure } from '@heroui/react';
 import { LucideDoorOpen } from 'lucide-react';
 import Link from 'next/link';
@@ -21,6 +22,7 @@ export default function AdminNavbar() {
 			isBordered
 			isMenuOpen={isOpen}
 			onMenuOpenChange={onOpenChange}
+			shouldHideOnScroll
 			classNames={{
 				item: [
 					'flex',
@@ -40,10 +42,12 @@ export default function AdminNavbar() {
 		>
 			<NavbarContent justify="start">
 				<NavbarMenuToggle className="sm:hidden" aria-label={isOpen ? 'Close menu' : 'Open menu'} />
-				<NavbarBrand>
+				<NavbarBrand className="w-auto text-xl">
 					<AppLogo />
-					<p className="font-bold text-inherit">QUICKLY</p>
 				</NavbarBrand>
+				<NavbarItem className="sm:hidden flex">
+					<ThemeSwitcher size="sm" />
+				</NavbarItem>
 			</NavbarContent>
 
 			<NavbarContent className="hidden sm:flex gap-4" justify="center">
@@ -56,13 +60,16 @@ export default function AdminNavbar() {
 
 			<NavbarContent className="hidden sm:flex" justify="end">
 				<NavbarItem>
+					<ThemeSwitcher size="sm" />
+				</NavbarItem>
+				<NavbarItem>
 					<Button color="danger" variant="light" endContent={<LucideDoorOpen size={16} />}>
 						Sair
 					</Button>
 				</NavbarItem>
 			</NavbarContent>
 
-			<NavbarMenu>
+			<NavbarMenu className="py-8">
 				{menuItems.map((menu_item, index) => {
 					const is_active = pathName === menu_item.href;
 					return (
@@ -80,7 +87,8 @@ export default function AdminNavbar() {
 						</NavbarMenuItem>
 					);
 				})}
-				<NavbarMenuItem>
+
+				<NavbarMenuItem className="mt-auto">
 					<Button color="danger" variant="flat" className="w-full justify-start" endContent={<LucideDoorOpen size={16} />}>
 						Sair
 					</Button>
