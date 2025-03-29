@@ -25,7 +25,7 @@ export default function AdminNavbar() {
 			shouldHideOnScroll
 			classNames={{
 				item: [
-					'flex',
+					'flex ',
 					'relative',
 					'h-full',
 					'items-center',
@@ -36,14 +36,14 @@ export default function AdminNavbar() {
 					'data-[active=true]:after:right-0',
 					'data-[active=true]:after:h-[2px]',
 					'data-[active=true]:after:rounded-[2px]',
-					'data-[active=true]:after:bg-primary',
+					'data-[active=true]:after:bg-success',
 				],
 			}}
 		>
 			<NavbarContent justify="start">
 				<NavbarMenuToggle className="sm:hidden" aria-label={isOpen ? 'Close menu' : 'Open menu'} />
 				<NavbarBrand className="w-auto text-xl">
-					<AppLogo />
+					<AppLogo className="text-2xl" />
 				</NavbarBrand>
 				<NavbarItem className="sm:hidden flex">
 					<ThemeSwitcher size="sm" />
