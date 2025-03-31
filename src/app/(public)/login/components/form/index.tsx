@@ -1,6 +1,7 @@
 'use client';
 
 import { useTogglePasswordVisibility } from '@/hooks/use-toggle-password-visibility';
+import { APP_ROUTES } from '@/shared/constants/app-routes';
 import { Button, Checkbox, Input } from '@heroui/react';
 import { LucideEye, LucideEyeClosed } from 'lucide-react';
 import Link from 'next/link';
@@ -37,11 +38,11 @@ export default function LoginForm() {
 			/>
 			<div className="flex flex-wrap items-center justify-between w-full">
 				<Checkbox color="success">Lembre de mim</Checkbox>
-				<Link href="#" className="underline">
+				<Link href={APP_ROUTES.PUBLIC.RECOVER_PASSWORD} className="underline">
 					Esqueceu a senha?
 				</Link>
 			</div>
-			<Button className="w-full text-background bg-foreground font-medium" size="lg">
+			<Button type="submit" className="w-full text-background bg-foreground font-medium" size="lg">
 				Entrar
 			</Button>
 		</form>
