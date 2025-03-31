@@ -2,7 +2,7 @@
 
 import AppLogo from '@/components/logo';
 import { Button, Card, CardBody, CardFooter, CardHeader } from '@heroui/react';
-import { LucideBarChart2 } from 'lucide-react';
+import { LucideBarChart2, LucideChevronsUp } from 'lucide-react';
 
 export default function LoginAsideCover() {
 	return (
@@ -21,12 +21,14 @@ export default function LoginAsideCover() {
 					<CardFooter></CardFooter>
 				</Card>
 				<div className="light shadow-md shadow-foreground/70 flex items-center gap-4 p-4 bg-background rounded-2xl absolute -bottom-10 -right-6 text-success-700">
-					<Button isIconOnly variant="light" radius="full" className="text-success-700 bg-white">
+					<Button isIconOnly variant="light" size="lg" radius="full" className="text-success-700 bg-white">
 						<LucideBarChart2 size={18} />
 					</Button>
 					<div className="flex font-bold flex-col">
 						<h3 className="font-medium text-foreground">Ganhos</h3>
-						<h1 className="text-xl">R$ 350.40</h1>
+						<h1 className="flex items-center gap-2 text-xl">
+							R$ 350.40 <LucideChevronsUp size={18} />
+						</h1>
 					</div>
 				</div>
 			</div>
