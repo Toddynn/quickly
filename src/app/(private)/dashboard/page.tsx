@@ -6,15 +6,13 @@ import {
 	LucideArrowDownRight,
 	LucideArrowUpRight,
 	LucideCalendarArrowUp,
-	LucideChartNoAxesCombined,
 	LucideChevronsUpDown,
 	LucideThumbsDown,
 	LucideThumbsUp,
-	LucideTickets,
 	LucideUser,
 } from 'lucide-react';
-import EmployeesChart from './components/charts/employees-chart';
-import ServicesChart from './components/charts/services-chart';
+import EmployeesPerformanceCard from './components/cards/employees-performance-card';
+import ServicesChartCard from './components/cards/services-chart-card';
 
 export default function Dashboard() {
 	return (
@@ -141,58 +139,8 @@ export default function Dashboard() {
 				</Card>
 			</div>
 			<div className="flex  items-center gap-6">
-				<Card shadow="sm" className="w-full h-full">
-					<CardHeader className="flex-col gap-2 items-start">
-						<div className="flex items-center justify-between gap-2 w-full">
-							<h1 className="text-xl font-medium">Performance dos empregados</h1>
-							<Button isIconOnly radius="full" size="lg" variant="flat" color="success" className="shrink-0">
-								<LucideChartNoAxesCombined size={20} />
-							</Button>
-						</div>
-						<div className="flex items-center justify-between w-full gap-2">
-							<h3 className="text-default-600">Por quantidade de agendamentos</h3>
-							<Button
-								endContent={<LucideChevronsUpDown size={14} />}
-								size="sm"
-								radius="sm"
-								variant="bordered"
-								className="border-1 text-default-600"
-							>
-								<h3 className="text-base text-default-600 capitalize">Nesse ano</h3>
-							</Button>
-						</div>
-					</CardHeader>
-					<CardBody>
-						<EmployeesChart />
-					</CardBody>
-				</Card>
-				<Card shadow="sm" className="w-full h-full">
-					<CardHeader className="flex-col gap-2 items-start">
-						<div className="flex items-center justify-between gap-2 w-full">
-							<h1 className="text-xl font-medium">
-								Serviços <span className="text-success">mais</span> escolhidos
-							</h1>
-							<Button isIconOnly radius="full" size="lg" variant="flat" color="success" className="shrink-0">
-								<LucideTickets size={20} />
-							</Button>
-						</div>
-						<div className="flex items-center justify-between w-full gap-2">
-							<h3 className="text-default-600">Por quantidade de agendamentos</h3>
-							<Button
-								endContent={<LucideChevronsUpDown size={14} />}
-								size="sm"
-								radius="sm"
-								variant="bordered"
-								className="border-1 text-default-600"
-							>
-								<h3 className="text-base text-default-600 capitalize">Nesse ano</h3>
-							</Button>
-						</div>
-					</CardHeader>
-					<CardBody className="flex justify-center items-center">
-						<ServicesChart />
-					</CardBody>
-				</Card>
+				<EmployeesPerformanceCard />
+				<ServicesChartCard />
 			</div>
 		</div>
 	);
