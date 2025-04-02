@@ -24,6 +24,7 @@ export default function AdminNavbar() {
 			onMenuOpenChange={onOpenChange}
 			shouldHideOnScroll
 			classNames={{
+				wrapper: 'max-w-none',
 				item: [
 					'flex ',
 					'relative',
