@@ -1,12 +1,12 @@
 'use client';
 
-import { Card, CardHeader, Button, CardBody, CardFooter } from '@heroui/react';
-import { LucideThumbsUp, LucideChevronsUpDown, LucideArrowUpRight } from 'lucide-react';
+import { Button, Card, CardBody, CardFooter, CardHeader } from '@heroui/react';
+import { LucideArrowUpRight, LucideChevronsUpDown, LucideThumbsUp } from 'lucide-react';
 
 export default function MostChosenServiceCard() {
 	return (
 		<Card shadow="sm" className="w-full h-full">
-			<CardHeader className="flex-col items-start">
+			<CardHeader className="flex-col gap-2 items-start">
 				<div className="flex items-center justify-between gap-2 w-full">
 					<h1 className="text-xl font-medium">
 						Serviço <span className="text-success">mais</span> escolhido

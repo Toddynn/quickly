@@ -1,13 +1,13 @@
 'use client';
 
-import { Card, CardHeader, Button, CardBody, CardFooter } from '@heroui/react';
+import { Button, Card, CardBody, CardFooter, CardHeader } from '@heroui/react';
 import NumberFlow from '@number-flow/react';
-import { LucideCalendarArrowUp, LucideChevronsUpDown, LucideArrowUpRight } from 'lucide-react';
+import { LucideArrowUpRight, LucideCalendarArrowUp, LucideChevronsUpDown } from 'lucide-react';
 
 export default function TotalSchedulingsCard() {
 	return (
 		<Card shadow="sm" className="w-full h-full">
-			<CardHeader className="flex-col items-start">
+			<CardHeader className="flex-col items-start gap-2">
 				<div className="flex items-center justify-between gap-2 w-full">
 					<h1 className="text-xl font-medium">Total de agendamentos</h1>
 					<Button isIconOnly radius="full" size="lg" variant="flat" color="success" className="shrink-0">
@@ -20,7 +20,7 @@ export default function TotalSchedulingsCard() {
 					</Button>
 				</div>
 			</CardHeader>
-			<CardBody className="py-0">
+			<CardBody>
 				<NumberFlow value={4874} animated className="text-4xl font-bold" />
 			</CardBody>
 			<CardFooter className=" pt-0">

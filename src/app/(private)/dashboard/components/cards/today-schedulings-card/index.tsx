@@ -1,8 +1,8 @@
 'use client';
 
-import { Card, CardHeader, Button, CardBody, CardFooter } from '@heroui/react';
+import { Button, Card, CardBody, CardFooter, CardHeader } from '@heroui/react';
 import NumberFlow from '@number-flow/react';
-import { LucideUser, LucideArrowUpRight } from 'lucide-react';
+import { LucideArrowUpRight, LucideUser } from 'lucide-react';
 
 export default function TodaySchedulingCard() {
 	return (
@@ -13,7 +13,7 @@ export default function TodaySchedulingCard() {
 					<LucideUser size={20} />
 				</Button>
 			</CardHeader>
-			<CardBody className="py-0">
+			<CardBody>
 				<NumberFlow value={4874} animated className="text-4xl font-bold" />
 			</CardBody>
 			<CardFooter className=" pt-0">
