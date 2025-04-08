@@ -3,7 +3,7 @@ import AdminNavbar from '../../components/ui/navbar';
 
 export default function AdminLayout({ children }: { children: ReactNode }) {
 	return (
-		<main className="relative w-full items-center justify-center">
+		<main className=" w-full ">
 			<AdminNavbar />
 			{children}
 		</main>
