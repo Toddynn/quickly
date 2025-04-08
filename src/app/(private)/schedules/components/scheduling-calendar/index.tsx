@@ -1,52 +1,32 @@
 'use client';
 
 import { Button, cn, ScrollShadow } from '@heroui/react';
+import { addMinutes, differenceInMinutes, endOfWeek, format, isSameDay, isWithinInterval, startOfWeek } from 'date-fns';
+import { ptBR } from 'date-fns/locale';
 import { ChevronLeft, ChevronRight, LucidePlus } from 'lucide-react';
 import { useState } from 'react';
 
+export const generateHorarios = () => {
+	const base = new Date();
+	base.setHours(0, 0, 0, 0);
+
+	const slots = [];
+
+	for (let i = 0; i < 24 * 2; i++) {
+		const slotTime = new Date(base);
+		slotTime.setMinutes(i * 30);
+
+		slots.push({
+			hora: slotTime,
+			agendamento: null,
+		});
+	}
+
+	return slots;
+};
+
 // Sample data structure as provided
-const horarios = [
-	{ hora: '09:00', agendamento: null },
-	{
-		hora: '10:00',
-		agendamento: {
-			nome: 'Rafael Costa',
-			contato: '11933334444',
-			servico: { nome: 'Cabelo + Barba', tempo_estimado: '30min', url_capa: '', valor: 35 },
-			status: 'aguardando',
-		},
-	},
-	{ hora: '11:00', agendamento: null },
-	{
-		hora: '12:00',
-		agendamento: {
-			nome: 'Rafael Costa',
-			contato: '11933334444',
-			servico: { nome: 'Cabelo + Barba', tempo_estimado: '30min', url_capa: '', valor: 35 },
-			status: 'aguardando',
-		},
-	},
-	{ hora: '13:00', agendamento: null },
-	{ hora: '14:00', agendamento: null },
-	{
-		hora: '15:00',
-		agendamento: {
-			nome: 'Juliana Martins',
-			contato: '11955556666',
-			servico: { nome: 'Cabelo', tempo_estimado: '30min', url_capa: '', valor: 35 },
-			status: 'aguardando',
-		},
-	},
-	{ hora: '16:00', agendamento: null },
-	{ hora: '17:00', agendamento: null },
-	{ hora: '18:00', agendamento: null },
-	{ hora: '19:00', agendamento: null },
-	{ hora: '20:00', agendamento: null },
-	{ hora: '21:00', agendamento: null },
-	{ hora: '22:00', agendamento: null },
-	{ hora: '23:00', agendamento: null },
-	{ hora: '00:00', agendamento: null },
-];
+const horarios = generateHorarios();
 
 // Generate a week of dates starting from today
 const generateWeekDates = () => {
@@ -63,41 +43,55 @@ const generateWeekDates = () => {
 };
 
 // Generate appointments for the week (for demo purposes)
-const generateWeekAppointments = (weekDates: Date[]) => {
+export const generateWeekAppointments = (weekDates: Date[]) => {
 	return weekDates.map((date) => {
-		// Clone the horarios array but randomize which slots have appointments
+		const baseHorarios = generateHorarios();
+
 		return {
 			date,
-			appointments: horarios.map((slot) => {
-				// For demo purposes, randomly decide if this slot has an appointment
-				// The current day (index 0) will use the exact data provided
+			appointments: baseHorarios.map((slot) => {
+				const hora = new Date(date);
+				hora.setHours(slot.hora.getHours(), slot.hora.getMinutes(), 0, 0);
+
 				const dayIndex = weekDates.indexOf(date);
+				let agendamento = null;
+
 				if (dayIndex === 4) {
-					// Friday will use the exact data provided
-					return { ...slot };
-				} else {
-					// For other days, randomly assign appointments
-					const hasAppointment = Math.random() > 0.7;
-					if (hasAppointment && slot.agendamento === null) {
-						return {
-							...slot,
-							agendamento: {
-								nome: ['João Silva', 'Maria Oliveira', 'Pedro Santos', 'Ana Souza'][Math.floor(Math.random() * 4)],
-								contato: '119' + Math.floor(Math.random() * 90000000 + 10000000),
-								servico: {
-									nome: ['Cabelo', 'Barba', 'Cabelo + Barba', 'Corte Feminino'][Math.floor(Math.random() * 4)],
-									tempo_estimado: '30min',
-									url_capa: '',
-									valor: Math.floor(Math.random() * 50) + 20,
-								},
-								status: 'aguardando',
+					const horaString = format(hora, 'HH:mm');
+					if (horaString === '10:00' || horaString === '15:30') {
+						agendamento = {
+							nome: 'Cliente Fixo',
+							contato: '11999999999',
+							servico: {
+								nome: 'Cabelo + Barba',
+								tempo_estimado: '30min',
+								url_capa: '',
+								valor: 40,
 							},
+							status: 'aguardando',
 						};
-					} else if (!hasAppointment && slot.agendamento !== null) {
-						return { ...slot, agendamento: null };
 					}
-					return { ...slot };
+				} else {
+					const hasAppointment = Math.random() > 0.85;
+					if (hasAppointment) {
+						agendamento = {
+							nome: ['João', 'Maria', 'Ana'][Math.floor(Math.random() * 3)],
+							contato: '119' + Math.floor(Math.random() * 90000000 + 10000000),
+							servico: {
+								nome: ['Cabelo', 'Barba', 'Corte Feminino'][Math.floor(Math.random() * 3)],
+								tempo_estimado: '30min',
+								url_capa: '',
+								valor: Math.floor(Math.random() * 30 + 20),
+							},
+							status: 'aguardando',
+						};
+					}
 				}
+
+				return {
+					hora,
+					agendamento,
+				};
 			}),
 		};
 	});
@@ -106,24 +100,14 @@ const generateWeekAppointments = (weekDates: Date[]) => {
 export default function SchedulingCalendar() {
 	const [currentWeek, setCurrentWeek] = useState(generateWeekDates());
 	const [weekData, setWeekData] = useState(generateWeekAppointments(currentWeek));
-	const [currentTime, setCurrentTime] = useState(new Date());
 
-	// Format date to Brazilian style (dd/mm)
-	const formatDate = (date: Date) => {
-		return `${date.getDate().toString().padStart(2, '0')}/${(date.getMonth() + 1).toString().padStart(2, '0')}`;
-	};
+	const currentWeekStart = startOfWeek(currentWeek[0], { weekStartsOn: 1 });
+	const currentWeekEnd = endOfWeek(currentWeek[6], { weekStartsOn: 1 });
 
-	// Format day of week in Portuguese
-	const formatDayOfWeek = (date: Date) => {
-		const days = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
-		return days[date.getDay()];
-	};
-
-	// Check if date is today
-	const isToday = (date: Date) => {
-		const today = new Date();
-		return date.getDate() === today.getDate() && date.getMonth() === today.getMonth() && date.getFullYear() === today.getFullYear();
-	};
+	const isViewingCurrentWeek = isWithinInterval(new Date(), {
+		start: currentWeekStart,
+		end: currentWeekEnd,
+	});
 
 	// Navigate to previous week
 	const previousWeek = () => {
@@ -147,18 +131,8 @@ export default function SchedulingCalendar() {
 		setWeekData(generateWeekAppointments(newWeek));
 	};
 
-	// Get current time indicator position
-	const getCurrentTimePosition = () => {
-		const now = new Date();
-		const hours = now.getHours();
-		const minutes = now.getMinutes();
-
-		// Calculate position as percentage of day (24 hours)
-		return (hours + minutes / 60) * (100 / 24);
-	};
-
 	// Get random pastel color for appointment cards
-	const getAppointmentColor = (serviceName: string) => {
+	const getAppointmentColor = (serviceName?: string) => {
 		const colors: Record<string, string> = {
 			Cabelo: 'bg-orange-50 border-orange-200',
 			Barba: 'bg-blue-50 border-blue-200',
@@ -166,11 +140,11 @@ export default function SchedulingCalendar() {
 			'Corte Feminino': 'bg-purple-50 border-purple-200',
 		};
 
-		return colors[serviceName] || 'bg-gray-50 border-gray-200';
+		return serviceName ? colors[serviceName] || 'bg-gray-50 border-gray-200' : 'bg-gray-50 border-gray-200';
 	};
 
 	return (
-		<div className="w-full">
+		<div className="w-full ">
 			<div className="flex justify-between items-center mb-6">
 				<h1 className="text-2xl font-bold">Agenda de serviços</h1>
 				<div className="flex items-center gap-4">
@@ -178,7 +152,7 @@ export default function SchedulingCalendar() {
 						<ChevronLeft size={18} />
 					</Button>
 					<span className="text-xl font-medium ">
-						{formatDate(currentWeek[0])} - {formatDate(currentWeek[6])}
+						{format(currentWeek[0], 'dd/MM/yy')} - {format(currentWeek[6], 'dd/MM/yy')}
 					</span>
 					<Button variant="flat" isIconOnly radius="full" onPress={nextWeek}>
 						<ChevronRight size={18} />
@@ -187,26 +161,46 @@ export default function SchedulingCalendar() {
 			</div>
 
 			<ScrollShadow orientation="horizontal">
-				<div className="overflow-x-auto min-w-[1050px]">
+				<div className="relative overflow-x-auto min-w-[1050px]">
 					{/* Calendar Header */}
 					<div className="grid grid-cols-8 border-b">
-						<div className="p-2 font-medium text-gray-500 text-center">GMT -03</div>
-						{currentWeek.map((date, index) => (
-							<div key={index} className={cn('p-2 text-center font-medium', isToday(date) ? 'bg-emerald-100' : '')}>
-								<div>{formatDayOfWeek(date)}</div>
-								<div>{date.getDate()}</div>
-							</div>
-						))}
+						<div></div>
+						{currentWeek.map((date, index) => {
+							return (
+								<div key={index} className={cn('p-2 text-center font-medium', isSameDay(new Date(), date) && 'bg-default-100')}>
+									<div>{format(date, 'eee', { locale: ptBR })}</div>
+									<div>{date.getDate()}</div>
+								</div>
+							);
+						})}
 					</div>
 
 					{/* Calendar Body */}
 					<div className="relative">
 						{/* Time slots */}
 						{horarios.map((slot, slotIndex) => (
-							<div key={slotIndex} className="grid grid-cols-8 border-b">
-								<div className="p-2 text-right text-sm text-gray-500 relative">
-									<span className="">{slot.hora}</span>
+							<div
+								key={slotIndex}
+								data-should-hide={differenceInMinutes(new Date(), slot.hora) >= 60}
+								className="relative grid grid-cols-8 border-b data-[should-hide=true]:hidden"
+							>
+								<div className="p-2 sticky text-right text-sm text-default-500 left-0">
+									<span>{format(slot.hora, 'HH:mm')}</span>
 								</div>
+
+								{isViewingCurrentWeek &&
+									isSameDay(new Date(), slot.hora) &&
+									isWithinInterval(new Date(), {
+										start: slot.hora,
+										end: addMinutes(slot.hora, 30),
+									}) && (
+										<div
+											className="absolute left-2 right-2 border-t-2 border-success-500 z-10 pointer-events-none"
+											style={{ top: '50%' }}
+										>
+											<div className="absolute -top-2 -left-2 w-4 h-4 rounded-full bg-success-500" />
+										</div>
+									)}
 
 								{weekData.map((day, dayIndex) => {
 									const appointment = day.appointments[slotIndex];
@@ -214,21 +208,21 @@ export default function SchedulingCalendar() {
 									return (
 										<div
 											key={`${dayIndex}-${slotIndex}`}
-											className={cn('border-r p-1 min-h-[100px] relative', isToday(day.date) ? 'bg-emerald-50' : '')}
+											className={cn(isSameDay(new Date(), day.date) && 'bg-default-50', 'border-r p-1 min-h-[100px] relative')}
 										>
 											{appointment.agendamento && (
 												<div
 													className={cn(
-														'p-2 rounded-md border text-sm h-full',
-														getAppointmentColor(appointment.agendamento.servico.nome)
+														getAppointmentColor(appointment.agendamento.servico.nome),
+														'p-2 rounded-md border text-sm'
 													)}
 												>
 													<div className="font-medium">{appointment.agendamento.servico.nome}</div>
-													<div className="text-xs text-gray-600">
-														{appointment.hora} - {appointment.agendamento.servico.tempo_estimado}
+													<div className="text-xs text-default-600">
+														{format(appointment.hora, 'HH:mm')} - {appointment.agendamento.servico.tempo_estimado}
 													</div>
 													<div className="mt-1">{appointment.agendamento.nome}</div>
-													<div className="text-xs text-gray-600">R$ {appointment.agendamento.servico.valor},00</div>
+													<div className="text-xs text-default-600">R$ {appointment.agendamento.servico.valor},00</div>
 												</div>
 											)}
 										</div>
@@ -236,18 +230,6 @@ export default function SchedulingCalendar() {
 								})}
 							</div>
 						))}
-
-						{/* Current time indicator */}
-						{currentWeek.some((date) => isToday(date)) && (
-							<div
-								className="absolute left-0 right-0 border-t-2 border-emerald-500 z-10 pointer-events-none"
-								style={{ top: `${getCurrentTimePosition()}%` }}
-							>
-								<div className="absolute -top-2 -left-2 w-4 h-4 rounded-full bg-emerald-500 text-white flex items-center justify-center text-xs">
-									<span className="sr-only">Hora atual</span>
-								</div>
-							</div>
-						)}
 					</div>
 				</div>
 			</ScrollShadow>
