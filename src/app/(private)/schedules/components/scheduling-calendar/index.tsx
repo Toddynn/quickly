@@ -3,8 +3,10 @@
 import { Button, cn, ScrollShadow } from '@heroui/react';
 import { addMinutes, differenceInMinutes, endOfWeek, format, isSameDay, isWithinInterval, startOfWeek } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
-import { ChevronLeft, ChevronRight, LucidePlus } from 'lucide-react';
+import { ChevronLeft, ChevronRight, LucidePen, LucidePlus } from 'lucide-react';
+import { parseAsBoolean, useQueryState } from 'nuqs';
 import { useState } from 'react';
+import { toast } from 'sonner';
 
 export const generateHorarios = () => {
 	const base = new Date();
@@ -98,6 +100,7 @@ export const generateWeekAppointments = (weekDates: Date[]) => {
 };
 
 export default function SchedulingCalendar() {
+	const [show_done_schedules, set_show_done_schedules] = useQueryState('', parseAsBoolean.withOptions({ shallow: false }).withDefault(false));
 	const [currentWeek, setCurrentWeek] = useState(generateWeekDates());
 	const [weekData, setWeekData] = useState(generateWeekAppointments(currentWeek));
 
@@ -143,11 +146,18 @@ export default function SchedulingCalendar() {
 		return serviceName ? colors[serviceName] || 'bg-gray-50 border-gray-200' : 'bg-gray-50 border-gray-200';
 	};
 
+	const toggleVisibility = () => {
+		set_show_done_schedules((old) => !old);
+	};
+
 	return (
 		<div className="w-full ">
 			<div className="flex justify-between items-center mb-6">
 				<h1 className="text-2xl font-bold">Agenda de serviços</h1>
 				<div className="flex items-center gap-4">
+					<Button variant="flat" radius="full" onPress={toggleVisibility}>
+						{show_done_schedules ? 'Ocultar concluídos' : 'Mostrar concluídos'}
+					</Button>
 					<Button variant="flat" isIconOnly radius="full" onPress={previousWeek}>
 						<ChevronLeft size={18} />
 					</Button>
@@ -181,7 +191,7 @@ export default function SchedulingCalendar() {
 						{horarios.map((slot, slotIndex) => (
 							<div
 								key={slotIndex}
-								data-should-hide={differenceInMinutes(new Date(), slot.hora) >= 60}
+								data-should-hide={differenceInMinutes(new Date(), slot.hora) >= 60 && !show_done_schedules}
 								className="relative grid grid-cols-8 border-b data-[should-hide=true]:hidden"
 							>
 								<div className="p-2 sticky text-right text-sm text-default-500 left-0">
@@ -208,13 +218,16 @@ export default function SchedulingCalendar() {
 									return (
 										<div
 											key={`${dayIndex}-${slotIndex}`}
-											className={cn(isSameDay(new Date(), day.date) && 'bg-default-50', 'border-r p-1 min-h-[100px] relative')}
+											className={cn(
+												isSameDay(new Date(), day.date) && 'bg-default-50',
+												'border-r p-1 min-h-[100px] relative flex items-center group justify-center'
+											)}
 										>
-											{appointment.agendamento && (
+											{appointment.agendamento ? (
 												<div
 													className={cn(
 														getAppointmentColor(appointment.agendamento.servico.nome),
-														'p-2 rounded-md border text-sm'
+														'p-2 rounded-md border text-sm size-full group relative'
 													)}
 												>
 													<div className="font-medium">{appointment.agendamento.servico.nome}</div>
@@ -223,7 +236,37 @@ export default function SchedulingCalendar() {
 													</div>
 													<div className="mt-1">{appointment.agendamento.nome}</div>
 													<div className="text-xs text-default-600">R$ {appointment.agendamento.servico.valor},00</div>
+													{isViewingCurrentWeek &&
+														(isSameDay(new Date(), day.date)
+															? differenceInMinutes(new Date(), slot.hora) <= 30
+															: true) && (
+															<Button
+																variant="flat"
+																color="primary"
+																className=" mt-2 sm:hidden group-hover:flex"
+																size="sm"
+															>
+																editar <LucidePen size={16} />
+															</Button>
+														)}
 												</div>
+											) : (
+												isViewingCurrentWeek &&
+												(isSameDay(new Date(), day.date) ? differenceInMinutes(new Date(), slot.hora) <= 30 : true) && (
+													<Button
+														size="sm"
+														variant="flat"
+														className="group-hover:flex hidden"
+														onPress={() => {
+															navigator.clipboard.writeText(
+																'link de agendamento com horario predefinido deve abrir modal pra escolher serviço'
+															);
+															toast.info('veja o clipboard');
+														}}
+													>
+														Convidar
+													</Button>
+												)
 											)}
 										</div>
 									);
@@ -234,8 +277,8 @@ export default function SchedulingCalendar() {
 				</div>
 			</ScrollShadow>
 
-			<Button isIconOnly size="lg" variant="shadow" color="success" radius="full" className="fixed bottom-6 right-6 ">
-				<LucidePlus size={18} />
+			<Button isIconOnly size="lg" variant="shadow" color="success" radius="full" className="fixed z-50 bottom-6 right-6 size-16">
+				<LucidePlus size={28} />
 			</Button>
 		</div>
 	);
