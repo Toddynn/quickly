@@ -4,15 +4,15 @@ import { Button, Divider, Input } from '@heroui/react';
 
 export default function Company() {
 	return (
-		<main className="flex gap-6 p-6">
-			<aside className="flex flex-col gap-6 size-full border-r-1 border-default-600">
-				<div className="flex max-w-64 flex-col gap-2">
-					<h1>Empresa atual</h1>
+		<main className="flex gap-6 p-4">
+			<aside className="flex bg-content1 rounded-lg p-4 max-w-64 min-h-full flex-col gap-6 size-full">
+				<div className="flex flex-col gap-2">
+					<h1 className="font-medium ">Empresa atual</h1>
 					<Button variant="flat">Dados da empresa</Button>
 				</div>
 				<Divider />
 				<div className="flex max-w-64 flex-col gap-2">
-					<h1>Minhas empresas</h1>
+					<h1 className="font-medium ">Minhas empresas</h1>
 					<Button variant="flat">Dados da empresa1</Button>
 					<Button variant="flat">Dados da empresa2</Button>
 					<Button variant="flat">Dados da empresa3</Button>
@@ -20,7 +20,7 @@ export default function Company() {
 					<Button variant="flat">Dados da empresa5</Button>
 				</div>
 			</aside>
-			<section className="flex flex-col gap-6 size-full">
+			<section className="flex flex-col p-4 gap-6 size-full">
 				<h1 className="text-2xl font-semibold">Dados da empresa</h1>
 				<div className="flex flex-col gap-4">
 					<Input name="name" label="Nome" size="lg" />
