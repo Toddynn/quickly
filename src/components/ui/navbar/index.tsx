@@ -15,7 +15,7 @@ export default function AdminNavbar() {
 		{ label: 'Agendamentos', href: '/schedules' },
 		{ label: 'Funcionários', href: '/employees' },
 		{ label: 'Serviços', href: '/services' },
-		{ label: 'Empresa', href: '/company' },
+		{ label: 'Empresa', href: '/companies' },
 	];
 
 	return (
