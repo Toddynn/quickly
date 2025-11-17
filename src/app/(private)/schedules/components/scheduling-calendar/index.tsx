@@ -1,6 +1,6 @@
 'use client';
 
-import { Button, cn, ScrollShadow } from '@heroui/react';
+import { Button, ScrollShadow, cn } from '@heroui/react';
 import { addMinutes, differenceInMinutes, endOfWeek, format, isSameDay, isWithinInterval, startOfWeek } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 import { ChevronLeft, ChevronRight, LucidePen, LucidePlus } from 'lucide-react';
@@ -220,14 +220,14 @@ export default function SchedulingCalendar() {
 											key={`${dayIndex}-${slotIndex}`}
 											className={cn(
 												isSameDay(new Date(), day.date) && 'bg-default-50',
-												'border-r p-1 min-h-[100px] relative flex items-center group justify-center'
+												'border-r p-1 min-h-[100px] relative flex items-center group justify-center',
 											)}
 										>
 											{appointment.agendamento ? (
 												<div
 													className={cn(
 														getAppointmentColor(appointment.agendamento.servico.nome),
-														'p-2 rounded-md border text-sm size-full group relative'
+														'p-2 rounded-md border text-sm size-full group relative',
 													)}
 												>
 													<div className="font-medium">{appointment.agendamento.servico.nome}</div>
@@ -259,7 +259,7 @@ export default function SchedulingCalendar() {
 														className="group-hover:flex hidden"
 														onPress={() => {
 															navigator.clipboard.writeText(
-																'link de agendamento com horario predefinido deve abrir modal pra escolher serviço'
+																'link de agendamento com horario predefinido deve abrir modal pra escolher serviço',
 															);
 															toast.info('veja o clipboard');
 														}}

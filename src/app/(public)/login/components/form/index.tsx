@@ -1,10 +1,10 @@
 'use client';
 
-import { useTogglePasswordVisibility } from '@/hooks/use-toggle-password-visibility';
-import { APP_ROUTES } from '@/shared/constants/app-routes';
 import { Button, Checkbox, Input } from '@heroui/react';
 import { LucideEye, LucideEyeClosed } from 'lucide-react';
 import Link from 'next/link';
+import { useTogglePasswordVisibility } from '@/hooks/use-toggle-password-visibility';
+import { APP_ROUTES } from '@/shared/constants/app-routes';
 
 export default function LoginForm() {
 	const { getInputType, isPasswordVisible, togglePasswordVisibility } = useTogglePasswordVisibility();

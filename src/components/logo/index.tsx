@@ -1,5 +1,5 @@
 import { cn } from '@heroui/react';
-import { HTMLAttributes } from 'react';
+import type { HTMLAttributes } from 'react';
 
 interface AppLogoProps extends HTMLAttributes<HTMLDivElement> {
 	text_class_name?: string;

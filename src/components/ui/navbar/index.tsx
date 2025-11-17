@@ -1,11 +1,11 @@
 'use client';
 
-import AppLogo from '@/components/logo';
-import { ThemeSwitcher } from '@/components/ui/theme-switch';
 import { Button, Navbar, NavbarBrand, NavbarContent, NavbarItem, NavbarMenu, NavbarMenuItem, NavbarMenuToggle, useDisclosure } from '@heroui/react';
 import { LucideDoorOpen } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import AppLogo from '@/components/logo';
+import { ThemeSwitcher } from '@/components/ui/theme-switch';
 
 export default function AdminNavbar() {
 	const pathName = usePathname();

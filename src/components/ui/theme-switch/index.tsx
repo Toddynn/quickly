@@ -1,6 +1,6 @@
 'use client';
 
-import { Switch, SwitchProps } from '@heroui/react';
+import { Switch, type SwitchProps } from '@heroui/react';
 import { MoonIcon, SunIcon } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import { useEffect, useState } from 'react';

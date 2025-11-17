@@ -1,6 +1,6 @@
-import { dmSansFont, gugiFont } from '@/shared/constants/fonts';
-import { Metadata } from 'next';
+import type { Metadata } from 'next';
 import { twMerge } from 'tailwind-merge';
+import { dmSansFont, gugiFont } from '@/shared/constants/fonts';
 import './globals.css';
 import Providers from './providers';
 
@@ -15,7 +15,7 @@ export default function RootLayout({
 	children: React.ReactNode;
 }>) {
 	return (
-		<html suppressHydrationWarning lang="ptbr" className={twMerge(dmSansFont.variable, gugiFont.variable, 'font-dm_sans')}>
+		<html suppressHydrationWarning lang="pt-BR" className={twMerge(dmSansFont.variable, gugiFont.variable, 'font-dm_sans')}>
 			<body suppressHydrationWarning className={'scroll-smooth antialiased'}>
 				<Providers>{children}</Providers>
 			</body>

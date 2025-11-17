@@ -1,11 +1,11 @@
 'use client';
 
-import { formatBrazilianPhone } from '@/shared/functions/format-brazilian-phone';
-import { Card, CardBody, CardHeader, CardProps, Chip, Divider, ScrollShadow } from '@heroui/react';
+import { Card, CardBody, CardHeader, type CardProps, Chip, Divider, ScrollShadow } from '@heroui/react';
 import Link from 'next/link';
 import { useMemo } from 'react';
 import { toast } from 'sonner';
-import { Employee } from '../../../page';
+import { formatBrazilianPhone } from '@/shared/functions/format-brazilian-phone';
+import type { Employee } from '../../../page';
 
 interface EmployeeCardProps extends Omit<CardProps, `children`> {
 	employee: Employee;

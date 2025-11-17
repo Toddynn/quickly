@@ -1,8 +1,8 @@
 'use client';
 
-import AppLogo from '@/components/logo';
 import { Button, Card, CardBody, CardFooter, CardHeader } from '@heroui/react';
 import { LucideBarChart2, LucideChevronsUp } from 'lucide-react';
+import AppLogo from '@/components/logo';
 
 export default function LoginAsideCover() {
 	return (

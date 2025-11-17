@@ -1,9 +1,9 @@
 'use client';
-import AppLogo from '@/components/logo';
-import { APP_ROUTES } from '@/shared/constants/app-routes';
 import { Button } from '@heroui/react';
 import { LucideArrowLeft } from 'lucide-react';
 import Link from 'next/link';
+import AppLogo from '@/components/logo';
+import { APP_ROUTES } from '@/shared/constants/app-routes';
 
 export default function LoginHeader() {
 	return (
