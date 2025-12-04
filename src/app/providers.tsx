@@ -1,6 +1,5 @@
 'use client';
 
-import { HeroUIProvider } from '@heroui/react';
 import dynamic from 'next/dynamic';
 import { NuqsAdapter } from 'nuqs/adapters/next/app';
 import type { ReactNode } from 'react';
@@ -12,14 +11,12 @@ const NextThemesProvider = dynamic(() => import('next-themes').then((mod) => mod
 export default function Providers({ children }: { children: ReactNode }) {
 	return (
 		<TanstackQueryClientProvider>
-			<HeroUIProvider locale="pt-BR">
-				<NuqsAdapter>
-					<NextThemesProvider attribute="class" defaultTheme="dark">
-						<Toaster richColors position="top-center" closeButton />
-						{children}
-					</NextThemesProvider>
-				</NuqsAdapter>
-			</HeroUIProvider>
+			<NuqsAdapter>
+				<NextThemesProvider attribute="class" defaultTheme="system">
+					<Toaster richColors position="top-center" closeButton />
+					{children}
+				</NextThemesProvider>
+			</NuqsAdapter>
 		</TanstackQueryClientProvider>
 	);
 }

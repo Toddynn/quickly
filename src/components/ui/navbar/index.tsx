@@ -38,7 +38,7 @@ export default function AdminNavbar() {
 					'data-[active=true]:after:right-0',
 					'data-[active=true]:after:h-[2px]',
 					'data-[active=true]:after:rounded-[2px]',
-					'data-[active=true]:after:bg-success',
+					'data-[active=true]:after:bg-heroui-success',
 				],
 			}}
 		>

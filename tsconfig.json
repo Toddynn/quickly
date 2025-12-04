@@ -25,7 +25,7 @@
 				"name": "next"
 			}
 		],
-		//"verbatimModuleSyntax": true,
+		"verbatimModuleSyntax": true,
 		"useDefineForClassFields": true,
 		"pretty": true
 	},

@@ -1,8 +1,9 @@
 'use client';
 
-import { Button, Card, CardBody, CardFooter, CardHeader } from '@heroui/react';
 import { LucideBarChart2, LucideChevronsUp } from 'lucide-react';
 import AppLogo from '@/components/logo';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card';
 
 export default function LoginAsideCover() {
 	return (
@@ -10,18 +11,20 @@ export default function LoginAsideCover() {
 			<div className="absolute -top-16 -right-16 rounded-full bg-slate-100/10 size-96 z-0" />
 
 			<div className="relative">
-				<Card shadow="sm" className="light ">
-					<CardHeader className="gap-2 p-6 flex-wrap text-4xl text-left text-success-700 font-bold">Metas rápidas de agendamento</CardHeader>
-					<CardBody className="p-6 ">
+				<Card className="light">
+					<CardHeader className="gap-2 p-6 flex-wrap text-4xl text-left text-heroui-success-700 font-bold">
+						Metas rápidas de agendamento
+					</CardHeader>
+					<CardContent className="p-6">
 						<p className="text-ellipsis font-normal text-lg text-pretty text-left">
 							Gerencie compromissos com facilidade e eficiência. Nosso sistema simplifica o agendamento para você ganhar tempo e manter
 							tudo organizado.
 						</p>
-					</CardBody>
+					</CardContent>
 					<CardFooter></CardFooter>
 				</Card>
-				<div className="light shadow-md shadow-foreground/70 flex items-center gap-4 p-4 bg-background rounded-2xl absolute -bottom-10 -right-6 text-success-700">
-					<Button isIconOnly variant="light" size="lg" radius="full" className="text-success-700 bg-white">
+				<div className="light shadow-md shadow-foreground/70 flex items-center gap-4 p-4 bg-background rounded-2xl absolute -bottom-10 -right-6 text-heroui-success-700">
+					<Button size="icon-lg" variant="ghost" className="text-heroui-success-700 bg-white rounded-full">
 						<LucideBarChart2 size={18} />
 					</Button>
 					<div className="flex font-bold flex-col">
