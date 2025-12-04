@@ -17,7 +17,6 @@ export function ThemeSwitcher({ ...props }: SwitchProps) {
 
 	return (
 		<Switch
-			defaultSelected
 			color="success"
 			endContent={<MoonIcon />}
 			size="sm"
