@@ -1,15 +1,14 @@
 'use client';
 
-import { Button, Navbar, NavbarBrand, NavbarContent, NavbarItem, NavbarMenu, NavbarMenuItem, NavbarMenuToggle, useDisclosure } from '@heroui/react';
 import { LucideDoorOpen } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import AppLogo from '@/components/logo';
 import { ThemeSwitcher } from '@/components/ui/theme-switch';
+import { Button } from '../button';
 
 export default function AdminNavbar() {
 	const pathName = usePathname();
-	const { isOpen, onOpenChange } = useDisclosure();
 	const menuItems = [
 		{ label: 'Início', href: '/dashboard' },
 		{ label: 'Agendamentos', href: '/schedules' },
