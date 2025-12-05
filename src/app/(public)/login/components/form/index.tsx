@@ -60,7 +60,7 @@ export default function LoginForm() {
 							Lembre de mim
 						</FieldLabel>
 					</Field>
-					<Link href={APP_ROUTES.PUBLIC.RECOVER_PASSWORD} className="underline w-full justify-end flex underline-offset-2 text-sm">
+					<Link href={APP_ROUTES.PUBLIC.RECOVER_PASSWORD.path} className="underline w-full justify-end flex underline-offset-2 text-sm">
 						Esqueceu a senha?
 					</Link>
 				</Field>
@@ -73,7 +73,7 @@ export default function LoginForm() {
 				Entrar com Google
 			</Button>
 			<Field className="justify-center" orientation="horizontal">
-				<Link href={APP_ROUTES.PUBLIC.REGISTER} className=" text-sm">
+				<Link href={APP_ROUTES.PUBLIC.REGISTER.path} className=" text-sm">
 					Não tem uma conta? <span className="underline underline-offset-2">Cadastre-se</span>
 				</Link>
 			</Field>

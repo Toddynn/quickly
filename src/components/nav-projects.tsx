@@ -1,7 +1,7 @@
 'use client';
 
 import { Folder, Forward, type LucideIcon, MoreHorizontal, Trash2 } from 'lucide-react';
-
+import Link from 'next/link';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { SidebarGroup, SidebarGroupLabel, SidebarMenu, SidebarMenuAction, SidebarMenuButton, SidebarMenuItem, useSidebar } from '@/components/ui/sidebar';
 
@@ -9,7 +9,7 @@ export function NavProjects({
 	projects,
 }: {
 	projects: {
-		name: string;
+		title: string;
 		url: string;
 		icon: LucideIcon;
 	}[];
@@ -21,12 +21,12 @@ export function NavProjects({
 			<SidebarGroupLabel>Projects</SidebarGroupLabel>
 			<SidebarMenu>
 				{projects.map((item) => (
-					<SidebarMenuItem key={item.name}>
+					<SidebarMenuItem key={item.title}>
 						<SidebarMenuButton asChild>
-							<a href={item.url}>
+							<Link href={item.url} rel="noopener noreferrer">
 								<item.icon />
-								<span>{item.name}</span>
-							</a>
+								<span>{item.title}</span>
+							</Link>
 						</SidebarMenuButton>
 						<DropdownMenu>
 							<DropdownMenuTrigger asChild>

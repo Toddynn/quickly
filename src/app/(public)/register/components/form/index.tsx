@@ -102,7 +102,7 @@ export default function RegisterForm() {
 				Entrar com Google
 			</Button>
 			<Field className="justify-center" orientation="horizontal">
-				<Link href={APP_ROUTES.PUBLIC.LOGIN} className="underline text-sm">
+				<Link href={APP_ROUTES.PUBLIC.LOGIN.path} className="underline text-sm">
 					Já tem uma conta? Faça login
 				</Link>
 			</Field>

@@ -1,30 +1,19 @@
 'use client';
 
-import {
-	LucideAudioWaveform,
-	LucideBookOpen,
-	LucideBot,
-	LucideCommand,
-	LucideFrame,
-	LucideGalleryVerticalEnd,
-	LucideMap,
-	LucidePieChart,
-	LucideSettings2,
-	LucideSquareTerminal,
-} from 'lucide-react';
+import { LucideAudioWaveform, LucideCommand, LucideGalleryVerticalEnd } from 'lucide-react';
 import type * as React from 'react';
 import { NavMain } from '@/components/nav-main';
-import { NavProjects } from '@/components/nav-projects';
-import { NavUser } from '@/components/nav-user';
 import { TeamSwitcher } from '@/components/team-switcher';
-import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarRail } from '@/components/ui/sidebar';
+import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader } from '@/components/ui/sidebar';
+import { APP_ROUTES } from '@/shared/constants/app-routes';
+import { NavProjects } from './nav-projects';
 
 // This is sample data.
 const data = {
 	user: {
-		name: 'shadcn',
-		email: 'm@example.com',
-		avatar: '/avatars/shadcn.jpg',
+		name: 'John Doe',
+		email: 'john.doe@example.com',
+		avatar: '',
 	},
 	teams: [
 		{
@@ -43,115 +32,27 @@ const data = {
 			plan: 'Free',
 		},
 	],
-	navMain: [
-		{
-			title: 'Playground',
-			url: '#',
-			icon: LucideSquareTerminal,
-			isActive: true,
-			items: [
-				{
-					title: 'History',
-					url: '#',
-				},
-				{
-					title: 'Starred',
-					url: '#',
-				},
-				{
-					title: 'Settings',
-					url: '#',
-				},
-			],
-		},
-		{
-			title: 'Models',
-			url: '#',
-			icon: LucideBot,
-			items: [
-				{
-					title: 'Genesis',
-					url: '#',
-				},
-				{
-					title: 'Explorer',
-					url: '#',
-				},
-				{
-					title: 'Quantum',
-					url: '#',
-				},
-			],
-		},
-		{
-			title: 'Documentation',
-			url: '#',
-			icon: LucideBookOpen,
-			items: [
-				{
-					title: 'Introduction',
-					url: '#',
-				},
-				{
-					title: 'Get Started',
-					url: '#',
-				},
-				{
-					title: 'Tutorials',
-					url: '#',
-				},
-				{
-					title: 'Changelog',
-					url: '#',
-				},
-			],
-		},
-		{
-			title: 'Settings',
-			url: '#',
-			icon: LucideSettings2,
-			items: [
-				{
-					title: 'General',
-					url: '#',
-				},
-				{
-					title: 'Team',
-					url: '#',
-				},
-				{
-					title: 'Billing',
-					url: '#',
-				},
-				{
-					title: 'Limits',
-					url: '#',
-				},
-			],
-		},
-	],
-	projects: [
-		{
-			name: 'Design Engineering',
-			url: '#',
-			icon: LucideFrame,
-		},
-		{
-			name: 'Sales & Marketing',
-			url: '#',
-			icon: LucidePieChart,
-		},
-		{
-			name: 'Travel',
-			url: '#',
-			icon: LucideMap,
-		},
-	],
+	navMain: Object.values(APP_ROUTES.PRIVATE.WITH_SUB_ROUTES).map((route) => ({
+		title: route.name,
+		url: route.path,
+		icon: route.icon,
+		isActive: false,
+		items: route.sub_routes?.map((subRoute) => ({
+			title: subRoute.name,
+			url: subRoute.path,
+			icon: subRoute.icon,
+		})),
+	})),
+	projects: Object.values(APP_ROUTES.PRIVATE.WITHOUT_SUB_ROUTES).map((route) => ({
+		title: route.name,
+		url: route.path,
+		icon: route.icon,
+	})),
 };
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 	return (
-		<Sidebar collapsible="icon" {...props}>
+		<Sidebar variant="inset" collapsible="icon" {...props}>
 			<SidebarHeader>
 				<TeamSwitcher teams={data.teams} />
 			</SidebarHeader>
@@ -159,10 +60,8 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 				<NavMain items={data.navMain} />
 				<NavProjects projects={data.projects} />
 			</SidebarContent>
-			<SidebarFooter>
-				<NavUser user={data.user} />
-			</SidebarFooter>
-			<SidebarRail />
+			<SidebarFooter>{/* <NavUser user={data.user} /> */}</SidebarFooter>
+			{/* <SidebarRail /> */}
 		</Sidebar>
 	);
 }
