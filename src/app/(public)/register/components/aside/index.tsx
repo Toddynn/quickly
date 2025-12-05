@@ -5,10 +5,10 @@ import AppLogo from '@/components/logo';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card';
 
-export default function LoginAsideCover() {
+export default function RegisterAsideCover() {
 	return (
 		<aside className="relative min-[1024px]:flex hidden flex-col justify-between overflow-hidden gap-12 size-full lg:p-20 p-12 text-foreground bg-[#2A2A2A] rounded-xl">
-			<div className="absolute -top-16 -right-16 rounded-full bg-slate-100/10 size-96 z-0" />
+			<div className="absolute -top-16 -left-16 rounded-full bg-slate-100/10 size-96 z-0" />
 
 			<div className="relative">
 				<Card className="light shadow-md shadow-background border-none">
@@ -23,7 +23,7 @@ export default function LoginAsideCover() {
 					</CardContent>
 					<CardFooter></CardFooter>
 				</Card>
-				<div className="light shadow-md shadow-background/70 flex items-center gap-4 p-4 bg-background rounded-2xl absolute -bottom-10 -right-6 text-heroui-success-700">
+				<div className="light shadow-md shadow-background/70 flex items-center gap-4 p-4 bg-background rounded-2xl absolute -bottom-10 -left-6 text-heroui-success-700">
 					<Button size="icon-lg" variant="ghost" className="text-heroui-success-700 bg-foreground rounded-full">
 						<LucideBarChart2 size={18} />
 					</Button>
