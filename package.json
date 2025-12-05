@@ -3,7 +3,7 @@
 	"version": "0.1.0",
 	"private": true,
 	"scripts": {
-		"dev": "next dev -p 6969",
+		"dev": "next dev -p 3737",
 		"build": "next build",
 		"start": "next start",
 		"biome:format": "biome format --write --max-diagnostics 200 .",

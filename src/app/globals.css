@@ -65,6 +65,7 @@
 	--color-heroui-default-900: hsl(var(--heroui-default-900));
 	--color-heroui-default-foreground: hsl(var(--heroui-default-foreground));
 	--color-heroui-default: hsl(var(--heroui-default));
+
 	--color-heroui-primary-50: hsl(var(--heroui-primary-50));
 	--color-heroui-primary-100: hsl(var(--heroui-primary-100));
 	--color-heroui-primary-200: hsl(var(--heroui-primary-200));
@@ -89,6 +90,7 @@
 	--color-heroui-secondary-900: hsl(var(--heroui-secondary-900));
 	--color-heroui-secondary-foreground: hsl(var(--heroui-secondary-foreground));
 	--color-heroui-secondary: hsl(var(--heroui-secondary));
+
 	--color-heroui-success-50: hsl(var(--heroui-success-50));
 	--color-heroui-success-100: hsl(var(--heroui-success-100));
 	--color-heroui-success-200: hsl(var(--heroui-success-200));
@@ -101,6 +103,7 @@
 	--color-heroui-success-900: hsl(var(--heroui-success-900));
 	--color-heroui-success-foreground: hsl(var(--heroui-success-foreground));
 	--color-heroui-success: hsl(var(--heroui-success));
+
 	--color-heroui-warning-50: hsl(var(--heroui-warning-50));
 	--color-heroui-warning-100: hsl(var(--heroui-warning-100));
 	--color-heroui-warning-200: hsl(var(--heroui-warning-200));
@@ -113,6 +116,7 @@
 	--color-heroui-warning-900: hsl(var(--heroui-warning-900));
 	--color-heroui-warning-foreground: hsl(var(--heroui-warning-foreground));
 	--color-heroui-warning: hsl(var(--heroui-warning));
+
 	--color-heroui-danger-50: hsl(var(--heroui-danger-50));
 	--color-heroui-danger-100: hsl(var(--heroui-danger-100));
 	--color-heroui-danger-200: hsl(var(--heroui-danger-200));
