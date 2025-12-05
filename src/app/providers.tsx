@@ -12,7 +12,7 @@ export default function Providers({ children }: { children: ReactNode }) {
 	return (
 		<TanstackQueryClientProvider>
 			<NuqsAdapter>
-				<NextThemesProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+				<NextThemesProvider attribute="class" defaultTheme="system" enableSystem>
 					<Toaster richColors position="top-center" closeButton />
 					{children}
 				</NextThemesProvider>

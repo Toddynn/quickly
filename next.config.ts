@@ -49,8 +49,11 @@ const nextConfig: NextConfig = {
 	},
 	images: {
 		qualities: [25, 50, 75, 100],
-		/* remotePatterns: [
+		remotePatterns: [
 			{
+				hostname: 'i.pravatar.cc',
+			},
+			/* {
 				hostname: env.NEXT_PUBLIC_BACKEND_DOMAIN,
 			},
 			{
@@ -64,8 +67,8 @@ const nextConfig: NextConfig = {
 			},
 			{
 				hostname: thumbnail_domains[YTB_THUMBNAIL_DOMAIN.i3YtImgCom],
-			},
-		], */
+			}, */
+		],
 	},
 	allowedDevOrigins: ['localhost' /* , env.NEXT_PUBLIC_APP_DOMAIN */],
 	/* async rewrites() {
