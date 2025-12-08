@@ -7,8 +7,8 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Field, FieldContent, FieldGroup, FieldLabel, FieldSeparator } from '@/components/ui/field';
 import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput } from '@/components/ui/input-group';
 import { TypographyH2 } from '@/components/ui/typography';
-import { useTogglePasswordVisibility } from '@/hooks/use-toggle-password-visibility';
 import { APP_ROUTES } from '@/shared/constants/app-routes';
+import { useTogglePasswordVisibility } from '@/shared/hooks/use-toggle-password-visibility';
 
 export default function LoginForm() {
 	const { getInputType, isPasswordVisible, togglePasswordVisibility } = useTogglePasswordVisibility();

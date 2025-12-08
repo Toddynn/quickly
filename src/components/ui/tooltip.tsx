@@ -18,7 +18,7 @@ function Tooltip({ ...props }: React.ComponentProps<typeof TooltipPrimitive.Root
 }
 
 function TooltipTrigger({ ...props }: React.ComponentProps<typeof TooltipPrimitive.Trigger>) {
-	return <TooltipPrimitive.Trigger data-slot="tooltip-trigger" {...props} />;
+	return <TooltipPrimitive.Trigger asChild data-slot="tooltip-trigger" {...props} />;
 }
 
 function TooltipContent({ className, sideOffset = 0, children, ...props }: React.ComponentProps<typeof TooltipPrimitive.Content>) {
@@ -34,7 +34,7 @@ function TooltipContent({ className, sideOffset = 0, children, ...props }: React
 				{...props}
 			>
 				{children}
-				<TooltipPrimitive.Arrow className="bg-foreground fill-foreground z-50 size-2.5 translate-y-[calc(-50%_-_2px)] rotate-45 rounded-[2px]" />
+				<TooltipPrimitive.Arrow className="bg-foreground fill-foreground z-50 size-2.5 translate-y-[calc(-50%-2px)] rotate-45 rounded-[2px]" />
 			</TooltipPrimitive.Content>
 		</TooltipPrimitive.Portal>
 	);

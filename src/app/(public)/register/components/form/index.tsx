@@ -7,9 +7,9 @@ import { Button } from '@/components/ui/button';
 import { Field, FieldContent, FieldGroup, FieldLabel, FieldSeparator } from '@/components/ui/field';
 import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput } from '@/components/ui/input-group';
 import { TypographyH2 } from '@/components/ui/typography';
-import { useTogglePasswordVisibility } from '@/hooks/use-toggle-password-visibility';
 import { APP_ROUTES } from '@/shared/constants/app-routes';
 import { formatPhoneNumber } from '@/shared/functions/format-phone-number';
+import { useTogglePasswordVisibility } from '@/shared/hooks/use-toggle-password-visibility';
 
 export default function RegisterForm() {
 	const { getInputType, isPasswordVisible, togglePasswordVisibility } = useTogglePasswordVisibility();

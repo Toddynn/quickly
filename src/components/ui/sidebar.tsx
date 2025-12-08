@@ -10,8 +10,8 @@ import { Separator } from '@/components/ui/separator';
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from '@/components/ui/sheet';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
-import { useIsMobile } from '@/hooks/use-mobile';
 import { getClientCookie, setCookie } from '@/shared/functions/cookies';
+import { useIsMobile } from '@/shared/hooks/use-mobile';
 import { cn } from '@/shared/lib/utils';
 
 export const SIDEBAR_COOKIE_NAME = 'sidebar_state';
@@ -254,16 +254,16 @@ function SidebarTrigger({ className, onClick, ...props }: ComponentProps<typeof 
 		<Button
 			data-sidebar="trigger"
 			data-slot="sidebar-trigger"
-			variant="ghost"
-			size="icon"
-			className={cn('size-7', className)}
+			variant="outline"
+			size="icon-sm"
+			className={cn('', className)}
 			onClick={(event) => {
 				onClick?.(event);
 				toggleSidebar();
 			}}
 			{...props}
 		>
-			<PanelLeftIcon />
+			<PanelLeftIcon size={18} />
 			<span className="sr-only">Toggle Sidebar</span>
 		</Button>
 	);
@@ -305,6 +305,20 @@ function SidebarInset({ className, ...props }: ComponentProps<'main'>) {
 			)}
 			{...props}
 		/>
+	);
+}
+
+function SidebarInsetNav({ className, children, ...props }: ComponentProps<'nav'>) {
+	return (
+		<nav
+			className={cn(
+				'flex h-16 shrink-0 px-4 border-b items-center gap-2 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12',
+				className,
+			)}
+			{...props}
+		>
+			{children}
+		</nav>
 	);
 }
 
@@ -612,5 +626,6 @@ export {
 	SidebarRail,
 	SidebarSeparator,
 	SidebarTrigger,
+	SidebarInsetNav,
 	useSidebar,
 };

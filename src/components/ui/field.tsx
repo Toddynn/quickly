@@ -85,6 +85,14 @@ function FieldLabel({ className, ...props }: React.ComponentProps<typeof Label>)
 	);
 }
 
+function FieldLabelRequired({ className, children, ...props }: React.ComponentProps<'span'> & { children?: React.ReactNode }) {
+	return (
+		<span className={cn('text-heroui-danger', className)} data-slot="field-label-required" {...props}>
+			{children ?? '*'}
+		</span>
+	);
+}
+
 function FieldTitle({ className, ...props }: React.ComponentProps<'div'>) {
 	return (
 		<div
@@ -175,4 +183,4 @@ function FieldError({
 	);
 }
 
-export { Field, FieldLabel, FieldDescription, FieldError, FieldGroup, FieldLegend, FieldSeparator, FieldSet, FieldContent, FieldTitle };
+export { Field, FieldLabel, FieldDescription, FieldError, FieldGroup, FieldLegend, FieldSeparator, FieldSet, FieldContent, FieldTitle, FieldLabelRequired };
