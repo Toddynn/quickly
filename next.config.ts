@@ -1,5 +1,6 @@
 import path from 'node:path';
 import type { NextConfig } from 'next';
+import { backend_url, env } from '@/shared/constants/env-variables';
 
 const nextConfig: NextConfig = {
 	reactStrictMode: true,
@@ -53,25 +54,16 @@ const nextConfig: NextConfig = {
 			{
 				hostname: 'i.pravatar.cc',
 			},
-			/* {
+			{
 				hostname: env.NEXT_PUBLIC_BACKEND_DOMAIN,
 			},
 			{
 				hostname: env.NEXT_PUBLIC_APP_DOMAIN,
 			},
-			{
-				hostname: thumbnail_domains[YTB_THUMBNAIL_DOMAIN.imgYouTubeCom],
-			},
-			{
-				hostname: thumbnail_domains[YTB_THUMBNAIL_DOMAIN.iYtImgCom],
-			},
-			{
-				hostname: thumbnail_domains[YTB_THUMBNAIL_DOMAIN.i3YtImgCom],
-			}, */
 		],
 	},
-	allowedDevOrigins: ['localhost' /* , env.NEXT_PUBLIC_APP_DOMAIN */],
-	/* async rewrites() {
+	allowedDevOrigins: ['localhost', env.NEXT_PUBLIC_APP_DOMAIN],
+	async rewrites() {
 		return [
 			{
 				source: `${env.NEXT_PUBLIC_API_SOURCE}/:path*`,
@@ -79,7 +71,7 @@ const nextConfig: NextConfig = {
 			},
 			{ source: '/favicon.ico', destination: '/assets/logos/favicon.ico' },
 		];
-	}, */
+	},
 	reactCompiler: true,
 };
 

@@ -4,29 +4,32 @@ import { standardSchemaResolver } from '@hookform/resolvers/standard-schema';
 import { useMutation } from '@tanstack/react-query';
 import { LucideGlobe, LucidePencilRuler, LucideUser } from 'lucide-react';
 import { Controller, useForm } from 'react-hook-form';
-import { useOrganizationActions } from '@/app/(private)/my-organizations/[organizationId]/edit/shared/functions/use-organization-actions';
 import { Button } from '@/components/ui/button';
 import { Field, FieldContent, FieldError, FieldGroup, FieldLabel, FieldLabelRequired } from '@/components/ui/field';
 import { InputGroup, InputGroupAddon, InputGroupInput, InputGroupText, InputGroupTextarea } from '@/components/ui/input-group';
 import { Spinner } from '@/components/ui/spinner';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import { generateSlugFromInput } from '@/shared/functions/generate-slug-from-input';
-import { type CreateOrganizationForm, CreateOrganizationSchema } from '../../../shared/schemas/create-organization-schema';
+import type { Organization } from '@/shared/functions/zustand/get-organization-by-id';
+import { type EditOrganizationForm, EditOrganizationSchema } from '../../../shared/schemas/edit-organization-schema';
 //TODO:  validation of slug and rest of fields.
 
-export function CreateOrganizationFormulary() {
-	const { createOrganization, verifySlugAvailability } = useOrganizationActions();
+export function EditOrganizationFormulary({ organization }: { organization: Organization }) {
 	//const { clearAll: clearAllFiles, files } = useFiles();
 
-	const { control, reset, handleSubmit, getValues, setError, clearErrors, setValue } = useForm<CreateOrganizationForm>({
+	const { control, reset, handleSubmit, getValues, setError, clearErrors, setValue } = useForm<EditOrganizationForm>({
 		defaultValues: {
-			name: '',
-			description: '',
-			slug: '',
+			name: organization.name,
+			description: organization.description,
+			slug: organization.slug,
 			//file: [],
 		},
-		resolver: standardSchemaResolver(CreateOrganizationSchema),
+		resolver: standardSchemaResolver(EditOrganizationSchema),
 	});
+
+	const hasChanges = () => {
+		return getValues('name') !== organization.name || getValues('slug') !== organization.slug || getValues('description') !== organization.description;
+	};
 
 	const handleReset = () => {
 		reset();
@@ -43,21 +46,26 @@ export function CreateOrganizationFormulary() {
 		return setValue('slug', generatedSlug);
 	};
 
-	const { mutateAsync: handleCreateOrganization, isPending: isCreatingOrganization } = useMutation({
-		mutationFn: async (form_data: CreateOrganizationForm) => await createOrganization({ form_data }),
+	const { mutateAsync: EditOrganization, isPending: isCreatingOrganization } = useMutation({
+		mutationFn: async (data: EditOrganizationForm) => {
+			// Simulate API call
+			return new Promise((resolve) => {
+				setTimeout(() => {
+					resolve(data);
+				}, 2000);
+			});
+		},
+		onSuccess: () => {
+			console.log('successooooo');
+		},
 	});
 
-	const onSubmit = async (data: CreateOrganizationForm) => {
-		await verifySlugAvailability({
-			form_data: { slug: data.slug },
-			on_success: async () => {
-				await handleCreateOrganization(data);
-			},
-		});
+	const onSubmit = (data: EditOrganizationForm) => {
+		EditOrganization(data);
 	};
 
 	return (
-		<form id="create-organization-form" onSubmit={handleSubmit(onSubmit)} onReset={handleReset} className="flex flex-col gap-7">
+		<form id="edit-organization-form" onSubmit={handleSubmit(onSubmit)} onReset={handleReset} className="flex flex-col gap-7">
 			<FieldGroup>
 				<Controller
 					name="name"
@@ -179,11 +187,11 @@ export function CreateOrganizationFormulary() {
 			</FieldGroup>
 
 			<Field orientation="horizontal" className="justify-end">
-				<Button disabled={isCreatingOrganization} size="lg" type="reset" variant="ghost">
+				<Button disabled={isCreatingOrganization || !hasChanges()} size="lg" type="reset" variant="ghost">
 					Resetar
 				</Button>
-				<Button disabled={isCreatingOrganization} size="lg" type="submit" form="create-organization-form">
-					{isCreatingOrganization && <Spinner />}Criar Organização
+				<Button disabled={isCreatingOrganization || !hasChanges()} size="lg" type="submit" form="edit-organization-form">
+					{isCreatingOrganization && <Spinner />} Finalizar Edição
 				</Button>
 			</Field>
 		</form>

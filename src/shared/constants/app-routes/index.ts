@@ -22,9 +22,9 @@ export const APP_ROUTES = {
 			path: '/scheduling',
 			icon: LucideCalendar,
 		},
-		MURAL_CHOICE: {
-			name: 'Mural Choice',
-			path: '/mural-choice',
+		LANDING_PAGE: {
+			name: 'Landing Page',
+			path: '/',
 			icon: LucideImage,
 		},
 	},
