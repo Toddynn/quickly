@@ -12,7 +12,6 @@ import { generateVideoThumbnail } from '@/shared/functions/generate-video-thumbn
 import { cn } from '@/shared/lib/utils';
 import { useFiles } from '@/shared/stores/zustand/files-store';
 import { Alert, AlertDescription, AlertTitle } from '../ui/alert';
-import { FieldDescription } from '../ui/field';
 
 export type FileWithPreview = { id: string; preview: string; file: File };
 
@@ -138,9 +137,9 @@ export default function FileUploader({
 					<p>Arraste ou clique para adicionar arquivos</p>
 					<LucideUpload size={18} />
 				</div>
-				<FieldDescription className="text-xs">
+				<p className="text-xs text-muted-foreground">
 					máx. {max_files} {max_files > 1 ? 'arquivos' : 'arquivo'}, {filesize(max_size)} {max_files > 1 && 'cada'}
-				</FieldDescription>
+				</p>
 			</div>
 
 			{/* Erros do Dropzone (Local) */}

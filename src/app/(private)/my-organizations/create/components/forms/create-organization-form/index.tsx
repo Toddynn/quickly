@@ -14,7 +14,7 @@ import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip
 import { generateSlugFromInput } from '@/shared/functions/generate-slug-from-input';
 import { useFiles } from '@/shared/stores/zustand/files-store';
 import { type CreateOrganizationForm, CreateOrganizationSchema } from '../../../shared/schemas/create-organization-schema';
-//TODO: Add file uploader, validation of slug and rest of fields.
+//TODO:  validation of slug and rest of fields.
 
 export function CreateOrganizationFormulary() {
 	const { clearAll: clearAllFiles, files } = useFiles();
