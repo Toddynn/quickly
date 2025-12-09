@@ -4,6 +4,7 @@ import { standardSchemaResolver } from '@hookform/resolvers/standard-schema';
 import { useMutation } from '@tanstack/react-query';
 import { LucideGlobe, LucidePencilRuler, LucideUser } from 'lucide-react';
 import { Controller, useForm } from 'react-hook-form';
+import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
 import { Field, FieldContent, FieldError, FieldGroup, FieldLabel, FieldLabelRequired } from '@/components/ui/field';
 import { InputGroup, InputGroupAddon, InputGroupInput, InputGroupText, InputGroupTextarea } from '@/components/ui/input-group';
@@ -11,25 +12,24 @@ import { Spinner } from '@/components/ui/spinner';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import { generateSlugFromInput } from '@/shared/functions/generate-slug-from-input';
 import type { Organization } from '@/shared/functions/zustand/get-organization-by-id';
+import { get_organization_by_id_query_key } from '@/shared/functions/zustand/get-organization-by-id/query-key';
+import { type EditOrganizationArgs, useOrganizationActions } from '../../../shared/functions/use-organization-actions';
 import { type EditOrganizationForm, EditOrganizationSchema } from '../../../shared/schemas/edit-organization-schema';
 //TODO:  validation of slug and rest of fields.
 
 export function EditOrganizationFormulary({ organization }: { organization: Organization }) {
+	const { editOrganization } = useOrganizationActions();
 	//const { clearAll: clearAllFiles, files } = useFiles();
 
-	const { control, reset, handleSubmit, getValues, setError, clearErrors, setValue } = useForm<EditOrganizationForm>({
+	const { control, reset, handleSubmit, getValues, formState, setError, clearErrors, setValue } = useForm<EditOrganizationForm>({
 		defaultValues: {
 			name: organization.name,
-			description: organization.description,
+			description: organization.description || '',
 			slug: organization.slug,
 			//file: [],
 		},
 		resolver: standardSchemaResolver(EditOrganizationSchema),
 	});
-
-	const hasChanges = () => {
-		return getValues('name') !== organization.name || getValues('slug') !== organization.slug || getValues('description') !== organization.description;
-	};
 
 	const handleReset = () => {
 		reset();
@@ -46,22 +46,21 @@ export function EditOrganizationFormulary({ organization }: { organization: Orga
 		return setValue('slug', generatedSlug);
 	};
 
-	const { mutateAsync: EditOrganization, isPending: isCreatingOrganization } = useMutation({
-		mutationFn: async (data: EditOrganizationForm) => {
-			// Simulate API call
-			return new Promise((resolve) => {
-				setTimeout(() => {
-					resolve(data);
-				}, 2000);
-			});
-		},
-		onSuccess: () => {
-			console.log('successooooo');
-		},
+	const { mutateAsync: handleEditOrganization, isPending: isCreatingOrganization } = useMutation({
+		mutationFn: async (args: EditOrganizationArgs) => await editOrganization(args),
 	});
 
-	const onSubmit = (data: EditOrganizationForm) => {
-		EditOrganization(data);
+	const handleSuccess = (updated_data: EditOrganizationForm) => {
+		toast.success('Organização editada com sucesso!');
+		reset(updated_data);
+	};
+	const onSubmit = async (form_data: EditOrganizationForm) => {
+		await handleEditOrganization({
+			organization_id: organization.id,
+			form_data,
+			query_keys_to_invalidate: get_organization_by_id_query_key({ organization_id: organization.id }),
+			on_success: () => handleSuccess(form_data),
+		});
 	};
 
 	return (
@@ -187,10 +186,10 @@ export function EditOrganizationFormulary({ organization }: { organization: Orga
 			</FieldGroup>
 
 			<Field orientation="horizontal" className="justify-end">
-				<Button disabled={isCreatingOrganization || !hasChanges()} size="lg" type="reset" variant="ghost">
+				<Button disabled={isCreatingOrganization || !formState.isDirty} size="lg" type="reset" variant="ghost">
 					Resetar
 				</Button>
-				<Button disabled={isCreatingOrganization || !hasChanges()} size="lg" type="submit" form="edit-organization-form">
+				<Button disabled={isCreatingOrganization || !formState.isDirty} size="lg" type="submit" form="edit-organization-form">
 					{isCreatingOrganization && <Spinner />} Finalizar Edição
 				</Button>
 			</Field>

@@ -5,7 +5,7 @@ import { buildApiRoute } from '../../build-api-route';
 export interface Organization {
 	id: string;
 	name: string;
-	description: string;
+	description: string | null;
 	slug: string;
 }
 

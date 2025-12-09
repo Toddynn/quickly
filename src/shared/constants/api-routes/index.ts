@@ -18,7 +18,9 @@ export const API_ROUTES = {
 		PRIVATE: {},
 	},
 	PATCH: {
-		PRIVATE: {},
+		PRIVATE: {
+			EDIT_ORGANIZATION: '/organizations/:organization_id',
+		},
 		PUBLIC: {},
 		PROTECTED: {},
 	},
