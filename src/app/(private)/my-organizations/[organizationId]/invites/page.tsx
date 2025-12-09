@@ -5,9 +5,9 @@ import { SidebarInset, SidebarInsetNav, SidebarTrigger } from '@/components/ui/s
 import { getQueryClient } from '@/shared/functions/get-query-client';
 import { getOrganizationById } from '@/shared/functions/zustand/get-organization-by-id';
 import { get_organization_by_id_query_key } from '@/shared/functions/zustand/get-organization-by-id/query-key';
-import { EditOrganizationWrapper } from './components/wrapper';
+import { OrganizationInvitesWrapper } from './components/wrapper';
 
-export default async function CreateOrganization({ params }: { params: Promise<{ organizationId: string }> }) {
+export default async function OrganizationInvites({ params }: { params: Promise<{ organizationId: string }> }) {
 	const { organizationId: organization_id } = await params;
 
 	const queryClient = getQueryClient();
@@ -26,7 +26,7 @@ export default async function CreateOrganization({ params }: { params: Promise<{
 					<SidebarTrigger />
 					<AppLogo />
 				</SidebarInsetNav>
-				<EditOrganizationWrapper organization_id={organization_id} />
+				<OrganizationInvitesWrapper organization_id={organization_id} />
 			</SidebarInset>
 		</HydrationBoundary>
 	);
