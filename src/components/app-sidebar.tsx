@@ -50,9 +50,9 @@ const data = {
 	})),
 };
 
-export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+export function AppSidebar({  collapsible = 'icon', variant = 'inset', ...props }: React.ComponentProps<typeof Sidebar>) {
 	return (
-		<Sidebar variant="inset" collapsible="icon" {...props}>
+		<Sidebar variant={variant} collapsible={collapsible} {...props}>
 			<SidebarHeader>
 				<TeamSwitcher teams={data.teams} />
 			</SidebarHeader>
