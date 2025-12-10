@@ -6,7 +6,10 @@ export const API_ROUTES = {
 			GET_ALL_ORGANIZATIONS_PAGINATED: '/organizations/:user_id/paginated',
 			GET_ALL_ORGANIZATION_INVITES_PAGINATED: '/organization-invites/:organization_id/paginated',
 		},
-		PUBLIC: {},
+		PUBLIC: {
+			GET_EXISTING_PASSWORD_RESET: '/password-reset/email/current',
+			GET_PASSWORD_RESET_BY_ID: '/password-reset/:password_reset_id',
+		},
 		PROTECTED: {},
 		AUTH: {},
 	},
@@ -15,7 +18,13 @@ export const API_ROUTES = {
 			CREATE_ORGANIZATION: '/organizations',
 			CREATE_ORGANIZATION_INVITE: '/organization-invites',
 		},
-		PUBLIC: {},
+		PUBLIC: {
+			CREATE_USER: '/users',
+
+			REQUEST_PASSWORD_RESET: '/password-reset/request',
+			VALIDATE_PASSWORD_RESET_OTP: '/password-reset/verify-otp',
+			RESET_PASSWORD: '/password-reset/reset',
+		},
 		PROTECTED: {},
 		AUTH: {},
 	},

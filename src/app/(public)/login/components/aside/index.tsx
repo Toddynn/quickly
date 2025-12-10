@@ -1,13 +1,21 @@
 'use client';
 
 import { LucideBarChart2, LucideChevronsUp } from 'lucide-react';
+import type { ComponentProps } from 'react';
 import AppLogo from '@/components/logo';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card';
+import { cn } from '@/shared/lib/utils';
 
-export default function LoginAsideCover() {
+export default function LoginAsideCover({ className, ...props }: ComponentProps<'aside'>) {
 	return (
-		<aside className="relative min-[1024px]:flex hidden flex-col justify-between overflow-hidden gap-12 size-full lg:p-20 p-12 text-foreground bg-[#2A2A2A] rounded-xl">
+		<aside
+			className={cn(
+				'relative min-[1024px]:flex hidden flex-col justify-between overflow-hidden gap-12 lg:p-20 p-12 text-foreground bg-[#2A2A2A] rounded-xl',
+				className,
+			)}
+			{...props}
+		>
 			<div className="absolute -top-16 -right-16 rounded-full bg-slate-100/10 size-96 z-0" />
 
 			<div className="relative">

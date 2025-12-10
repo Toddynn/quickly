@@ -4,9 +4,10 @@ import RegisterHeader from './components/header';
 
 export default async function Register() {
 	return (
-		<main className="flex h-screen items-center lg:gap-12 p-12 lg:p-20">
-			<RegisterAsideCover />
-			<aside className="flex flex-col items-start gap-12 size-full md:px-12 lg:px-20">
+		<main className="relative flex h-dvh overflow-x-hidden items-center lg:gap-12 p-12 lg:p-20">
+			<RegisterAsideCover className="sticky top-4 self-start" />
+
+			<aside className="flex flex-col w-full max-h-full  items-start gap-12">
 				<RegisterHeader />
 				<RegisterForm />
 			</aside>

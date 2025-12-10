@@ -15,7 +15,7 @@ export default async function MyOrganizations() {
 					<SidebarTrigger />
 					<AppLogo />
 				</SidebarInsetNav>
-				<div className="flex max-w-7xl flex-1 flex-col gap-4 p-4">
+				<div className="flex flex-1 flex-col gap-4 p-4">
 					<TypographyH2 className="self-start border-none">Minhas Organizações</TypographyH2>
 					<OrganizationsList />
 				</div>

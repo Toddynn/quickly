@@ -8,10 +8,10 @@ import { APP_ROUTES } from '@/shared/constants/app-routes';
 
 export default function RegisterHeader() {
 	return (
-		<div className="flex items-center gap-2">
-			<Link href={APP_ROUTES.PUBLIC.LOGIN}>
-				<Button variant="ghost" size="icon">
-					<LucideArrowLeft size={18} />
+		<div className="flex sm:flex-row flex-col sm:items-center gap-4">
+			<Link href={APP_ROUTES.PUBLIC.LOGIN.path}>
+				<Button variant="outline" size="icon-lg">
+					<LucideArrowLeft className="size-5" />
 				</Button>
 			</Link>
 			<AppLogo className="text-5xl" />

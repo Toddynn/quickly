@@ -1,13 +1,21 @@
 'use client';
 
 import { LucideBarChart2, LucideChevronsUp } from 'lucide-react';
+import type { ComponentProps } from 'react';
 import AppLogo from '@/components/logo';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card';
+import { cn } from '@/shared/lib/utils';
 
-export default function RegisterAsideCover() {
+export default function RegisterAsideCover({ className, ...props }: ComponentProps<'aside'>) {
 	return (
-		<aside className="relative min-[1024px]:flex hidden flex-col justify-between overflow-hidden gap-12 size-full lg:p-20 p-12 text-foreground bg-[#2A2A2A] rounded-xl">
+		<aside
+			className={cn(
+				'relative min-[1024px]:flex hidden flex-col justify-between overflow-hidden gap-12  lg:p-20 p-12 text-foreground bg-[#2A2A2A] rounded-xl',
+				className,
+			)}
+			{...props}
+		>
 			<div className="absolute -top-16 -left-16 rounded-full bg-slate-100/10 size-96 z-0" />
 
 			<div className="relative">
@@ -36,7 +44,7 @@ export default function RegisterAsideCover() {
 				</div>
 			</div>
 
-			<div className="flex flex-col dark:text-foreground text-background lg:gap-12 gap-4 items-center">
+			<div className="flex flex-col dark:text-foreground text-background lg:gap-12 mt-6 gap-4 items-center">
 				<h1 className="text-3xl text-left w-full text-pretty font-bold">Agendamentos simplificados e rápidos</h1>
 				<p className="text-pretty text-left text-lg w-full font-normal">
 					Tome decisões mais inteligentes com base no histórico de agendamentos. Planeje com confiança e otimize sua rotina.

@@ -1,9 +1,12 @@
 'use client';
 
+import { LucideFolder } from 'lucide-react';
 import Link from 'next/link';
 import { useCallback } from 'react';
 import { OrganizationCard } from '@/components/composition-pattern/cards/organization/organization-card';
 import { InfiniteList } from '@/components/composition-pattern/infinite-list';
+import { Button } from '@/components/ui/button';
+import { Empty, EmptyContent, EmptyDescription, EmptyHeader, EmptyMedia, EmptyTitle } from '@/components/ui/empty';
 import { usePrivateInfiniteGetAllOrganizationsPaginated } from '@/shared/functions/tanstack/get/private/organizations/get-all-organizations/use-index';
 import type { Organization } from '@/shared/functions/zustand/get-organization-by-id';
 
@@ -40,6 +43,22 @@ export default function OrganizationsList() {
 			hasNextPage={!!hasNextPage}
 			error={error}
 			onEndReached={fetchNextPage}
+			EmptyList={
+				<Empty>
+					<EmptyHeader>
+						<EmptyMedia variant="icon">
+							<LucideFolder />
+						</EmptyMedia>
+						<EmptyTitle>Nenhuma Organização Encontrada</EmptyTitle>
+						<EmptyDescription>Você ainda não criou nenhuma organização. Comece criando sua primeira organização.</EmptyDescription>
+					</EmptyHeader>
+					<EmptyContent>
+						<Button asChild>
+							<Link href="/my-organizations/create">Criar Organização</Link>
+						</Button>
+					</EmptyContent>
+				</Empty>
+			}
 		/>
 	);
 }

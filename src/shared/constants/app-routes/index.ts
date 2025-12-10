@@ -17,6 +17,16 @@ export const APP_ROUTES = {
 			path: '/recover-password',
 			icon: LucideLock,
 		},
+		RECOVER_PASSWORD_OTP: {
+			name: 'Recover Password OTP',
+			path: '/recover-password/otp',
+			icon: LucideLock,
+		},
+		RECOVER_PASSWORD_RESET: {
+			name: 'Recover Password Reset',
+			path: '/recover-password/reset',
+			icon: LucideLock,
+		},
 		SCHEDULING: {
 			name: 'Scheduling',
 			path: '/scheduling',

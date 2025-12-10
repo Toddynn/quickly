@@ -8,10 +8,10 @@ import { APP_ROUTES } from '@/shared/constants/app-routes';
 
 export default function RecoverPasswordHeader() {
 	return (
-		<div className="flex items-center gap-2">
-			<Button variant="ghost" size="icon" asChild>
-				<Link href={APP_ROUTES.PUBLIC.LOGIN}>
-					<LucideArrowLeft size={18} />
+		<div className="flex sm:flex-row flex-col sm:items-center gap-4">
+			<Button variant="outline" size="icon-lg" asChild>
+				<Link href={APP_ROUTES.PUBLIC.LOGIN.path}>
+					<LucideArrowLeft className="size-5" />
 				</Link>
 			</Button>
 			<AppLogo className="text-5xl" />
