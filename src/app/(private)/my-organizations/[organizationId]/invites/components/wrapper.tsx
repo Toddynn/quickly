@@ -7,6 +7,7 @@ import { OrganizationCardSkeleton } from '@/components/composition-pattern/cards
 import { Button } from '@/components/ui/button';
 import { InputGroup, InputGroupAddon, InputGroupInput } from '@/components/ui/input-group';
 import { TypographyH2 } from '@/components/ui/typography';
+import { USER_ID_TEST } from '@/shared/constants/user-id-test';
 import type { Organization } from '@/shared/functions/zustand/get-organization-by-id';
 import { useSuspenseGetOrganizationById } from '@/shared/functions/zustand/get-organization-by-id/use-index';
 import { InviteModal } from './invite-modal';
@@ -24,7 +25,6 @@ export function OrganizationInvitesWrapper({ organization_id }: OrganizationInvi
 	if (!organization) notFound();
 
 	// TODO: Trocar para pegar do current user quando tiver login implementado
-	const inviter_id = '019afb5d-a7d1-735a-a495-2626d4b74ee6';
 
 	return (
 		<Fragment>
@@ -57,7 +57,7 @@ export function OrganizationInvitesWrapper({ organization_id }: OrganizationInvi
 					<OrganizationCard className="xl:sticky top-4 xl:max-w-md shrink-0" organization={organization} />
 				</Suspense>
 			</div>
-			<InviteModal open={isInviteModalOpen} onOpenChange={setIsInviteModalOpen} organization_id={organization_id} inviter_id={inviter_id} />
+			<InviteModal open={isInviteModalOpen} onOpenChange={setIsInviteModalOpen} organization_id={organization_id} inviter_id={USER_ID_TEST} />
 		</Fragment>
 	);
 }

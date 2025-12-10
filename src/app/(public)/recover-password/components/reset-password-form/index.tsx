@@ -2,7 +2,7 @@
 
 import { standardSchemaResolver } from '@hookform/resolvers/standard-schema';
 import { useMutation } from '@tanstack/react-query';
-import { LucideArrowLeft, LucideCheckCircle2, LucideEye, LucideEyeClosed, LucideLoader2, LucideLock } from 'lucide-react';
+import { LucideArrowLeft, LucideCheckCircle2, LucideEye, LucideEyeClosed, LucideLock } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -11,6 +11,7 @@ import { Button } from '@/components/ui/button';
 import { Empty, EmptyContent, EmptyDescription, EmptyHeader, EmptyMedia, EmptyTitle } from '@/components/ui/empty';
 import { Field, FieldContent, FieldError, FieldGroup, FieldLabel, FieldLabelRequired } from '@/components/ui/field';
 import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput } from '@/components/ui/input-group';
+import { Spinner } from '@/components/ui/spinner';
 import { TypographyH2, TypographyP } from '@/components/ui/typography';
 import { APP_ROUTES } from '@/shared/constants/app-routes';
 import { buildAppRoute } from '@/shared/functions/build-app-route';
@@ -128,7 +129,7 @@ export default function ResetPasswordFormulary() {
 				/>
 			</FieldGroup>
 			<Button type="submit" className="w-full text-background bg-foreground font-medium" size="lg" disabled={isResettingPassword}>
-				{isResettingPassword && <LucideLoader2 className="size-4 animate-spin" />}
+				{isResettingPassword && <Spinner />}
 				{isResettingPassword ? 'Redefinindo senha...' : 'Redefinir senha'}
 			</Button>
 			<Field orientation="horizontal" className="justify-center">

@@ -2,7 +2,7 @@
 
 import { standardSchemaResolver } from '@hookform/resolvers/standard-schema';
 import { useMutation } from '@tanstack/react-query';
-import { LucideArrowLeft, LucideLoader2, LucideMail } from 'lucide-react';
+import { LucideArrowLeft, LucideMail } from 'lucide-react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect } from 'react';
 import { Controller, useForm } from 'react-hook-form';
@@ -10,6 +10,7 @@ import { Button } from '@/components/ui/button';
 import { Field, FieldContent, FieldError, FieldGroup, FieldLabel, FieldLabelRequired } from '@/components/ui/field';
 import { InputGroup, InputGroupAddon, InputGroupInput } from '@/components/ui/input-group';
 import { InputOTP, InputOTPGroup, InputOTPSeparator, InputOTPSlot } from '@/components/ui/input-otp';
+import { Spinner } from '@/components/ui/spinner';
 import { TypographyH2, TypographyP } from '@/components/ui/typography';
 import { APP_ROUTES } from '@/shared/constants/app-routes';
 import { buildAppRoute } from '@/shared/functions/build-app-route';
@@ -133,7 +134,7 @@ export default function OtpForm() {
 				/>
 				<Field>
 					<Button type="submit" className="w-full text-background bg-foreground font-medium" size="lg" disabled={isValidatingPasswordResetOtp}>
-						{isValidatingPasswordResetOtp && <LucideLoader2 className="size-4 animate-spin" />}
+						{isValidatingPasswordResetOtp && <Spinner />}
 						{isValidatingPasswordResetOtp ? 'Verificando...' : 'Verificar'}
 					</Button>
 				</Field>

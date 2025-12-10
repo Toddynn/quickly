@@ -4,12 +4,13 @@ import { standardSchemaResolver } from '@hookform/resolvers/standard-schema';
 import { useMutation } from '@tanstack/react-query';
 import { LucideGlobe, LucidePencilRuler, LucideUser } from 'lucide-react';
 import { Controller, useForm } from 'react-hook-form';
-import { useOrganizationActions } from '@/app/(private)/my-organizations/create/shared/functions/use-organization-actions';
+import { type VerifySlugAvailabilityArgs, useOrganizationActions } from '@/app/(private)/my-organizations/create/shared/functions/use-organization-actions';
 import { Button } from '@/components/ui/button';
 import { Field, FieldContent, FieldError, FieldGroup, FieldLabel, FieldLabelRequired } from '@/components/ui/field';
 import { InputGroup, InputGroupAddon, InputGroupInput, InputGroupText, InputGroupTextarea } from '@/components/ui/input-group';
 import { Spinner } from '@/components/ui/spinner';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
+import { USER_ID_TEST } from '@/shared/constants/user-id-test';
 import { generateSlugFromInput } from '@/shared/functions/generate-slug-from-input';
 import { type CreateOrganizationForm, CreateOrganizationSchema } from '../../../shared/schemas/create-organization-schema';
 //TODO:  validation of slug and rest of fields.
@@ -18,14 +19,23 @@ export function CreateOrganizationFormulary() {
 	const { createOrganization, verifySlugAvailability } = useOrganizationActions();
 	//const { clearAll: clearAllFiles, files } = useFiles();
 
+	const { mutateAsync: handleCreateOrganization, isPending: isCreatingOrganization } = useMutation({
+		mutationFn: async (form_data: CreateOrganizationForm) => await createOrganization({ form_data }),
+	});
+
+	const { mutateAsync: handleVerifySlugAvailability, isPending: isVerifyingSlugAvailability } = useMutation({
+		mutationFn: async (args: VerifySlugAvailabilityArgs) => await verifySlugAvailability(args),
+	});
+
 	const { control, reset, handleSubmit, getValues, setError, clearErrors, setValue } = useForm<CreateOrganizationForm>({
 		defaultValues: {
 			name: '',
 			description: '',
 			slug: '',
-			owner_id: '019afb5d-a7d1-735a-a495-2626d4b74ee6',
+			owner_id: USER_ID_TEST,
 			//file: [],
 		},
+		disabled: isCreatingOrganization || isVerifyingSlugAvailability,
 		resolver: standardSchemaResolver(CreateOrganizationSchema),
 	});
 
@@ -44,12 +54,8 @@ export function CreateOrganizationFormulary() {
 		return setValue('slug', generatedSlug);
 	};
 
-	const { mutateAsync: handleCreateOrganization, isPending: isCreatingOrganization } = useMutation({
-		mutationFn: async (form_data: CreateOrganizationForm) => await createOrganization({ form_data }),
-	});
-
 	const onSubmit = async (data: CreateOrganizationForm) => {
-		await verifySlugAvailability({
+		await handleVerifySlugAvailability({
 			form_data: { slug: data.slug },
 			on_success: async () => {
 				await handleCreateOrganization(data);
@@ -115,12 +121,14 @@ export function CreateOrganizationFormulary() {
 										<TooltipTrigger>
 											<Button
 												type="button"
+												disabled={isVerifyingSlugAvailability}
 												onClick={handleGenerateSlug}
 												variant={'secondary'}
 												size={'icon-lg'}
 												aria-label="Gerar domínio"
 											>
-												<LucidePencilRuler size={18} />
+												{isVerifyingSlugAvailability && <Spinner />}
+												{!isVerifyingSlugAvailability && <LucidePencilRuler className="size-4" />}
 											</Button>
 										</TooltipTrigger>
 										<TooltipContent>Clique para gerar um domínio a partir do nome da organização</TooltipContent>
@@ -180,11 +188,11 @@ export function CreateOrganizationFormulary() {
 			</FieldGroup>
 
 			<Field orientation="horizontal" className="justify-end">
-				<Button disabled={isCreatingOrganization} size="lg" type="reset" variant="ghost">
+				<Button disabled={isCreatingOrganization || isVerifyingSlugAvailability} size="lg" type="reset" variant="ghost">
 					Resetar
 				</Button>
-				<Button disabled={isCreatingOrganization} size="lg" type="submit" form="create-organization-form">
-					{isCreatingOrganization && <Spinner />}Criar Organização
+				<Button disabled={isCreatingOrganization || isVerifyingSlugAvailability} size="lg" type="submit" form="create-organization-form">
+					{(isCreatingOrganization || isVerifyingSlugAvailability) && <Spinner />}Criar Organização
 				</Button>
 			</Field>
 		</form>

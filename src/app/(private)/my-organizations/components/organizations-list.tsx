@@ -7,13 +7,12 @@ import { OrganizationCard } from '@/components/composition-pattern/cards/organiz
 import { InfiniteList } from '@/components/composition-pattern/infinite-list';
 import { Button } from '@/components/ui/button';
 import { Empty, EmptyContent, EmptyDescription, EmptyHeader, EmptyMedia, EmptyTitle } from '@/components/ui/empty';
+import { USER_ID_TEST } from '@/shared/constants/user-id-test';
 import { usePrivateInfiniteGetAllOrganizationsPaginated } from '@/shared/functions/tanstack/get/private/organizations/get-all-organizations/use-index';
 import type { Organization } from '@/shared/functions/zustand/get-organization-by-id';
 
 // TODO: Trocar user_id para pegar do current user quando tiver login implementado
 export default function OrganizationsList() {
-	const user_id = '019afb5d-a7d1-735a-a495-2626d4b74ee6';
-
 	const {
 		data: Pagination,
 		isLoading,
@@ -22,7 +21,7 @@ export default function OrganizationsList() {
 		hasNextPage,
 		error,
 	} = usePrivateInfiniteGetAllOrganizationsPaginated({
-		user_id,
+		user_id: USER_ID_TEST,
 	});
 
 	const renderItem = useCallback((organization: Organization, _index: number, _pageIndex: number) => {

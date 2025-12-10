@@ -2,13 +2,14 @@
 
 import { standardSchemaResolver } from '@hookform/resolvers/standard-schema';
 import { useMutation } from '@tanstack/react-query';
-import { LucideLoader2, LucideMail } from 'lucide-react';
+import { LucideMail } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { Controller, useForm } from 'react-hook-form';
 import { Button } from '@/components/ui/button';
 import { Field, FieldContent, FieldError, FieldGroup, FieldLabel, FieldLabelRequired } from '@/components/ui/field';
 import { InputGroup, InputGroupAddon, InputGroupInput } from '@/components/ui/input-group';
+import { Spinner } from '@/components/ui/spinner';
 import { TypographyH2, TypographyP } from '@/components/ui/typography';
 import { APP_ROUTES } from '@/shared/constants/app-routes';
 import { buildAppRoute } from '@/shared/functions/build-app-route';
@@ -83,7 +84,7 @@ export default function RequestEmailForm() {
 				/>
 			</FieldGroup>
 			<Button type="submit" className="w-full text-background bg-foreground font-medium" size="lg" disabled={isRequestingPasswordReset}>
-				{isRequestingPasswordReset && <LucideLoader2 className="size-4 animate-spin" />}
+				{isRequestingPasswordReset && <Spinner />}
 				{isRequestingPasswordReset ? 'Enviando...' : 'Enviar'}
 			</Button>
 			<Field orientation="horizontal" className="justify-center">

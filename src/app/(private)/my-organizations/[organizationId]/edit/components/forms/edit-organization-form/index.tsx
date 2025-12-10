@@ -10,6 +10,7 @@ import { Field, FieldContent, FieldError, FieldGroup, FieldLabel, FieldLabelRequ
 import { InputGroup, InputGroupAddon, InputGroupInput, InputGroupText, InputGroupTextarea } from '@/components/ui/input-group';
 import { Spinner } from '@/components/ui/spinner';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
+import { USER_ID_TEST } from '@/shared/constants/user-id-test';
 import { generateSlugFromInput } from '@/shared/functions/generate-slug-from-input';
 import type { Organization } from '@/shared/functions/zustand/get-organization-by-id';
 import { get_organization_by_id_query_key } from '@/shared/functions/zustand/get-organization-by-id/query-key';
@@ -26,7 +27,7 @@ export function EditOrganizationFormulary({ organization }: { organization: Orga
 			name: organization.name,
 			description: organization.description || '',
 			slug: organization.slug,
-			owner_id: '019afb5d-a7d1-735a-a495-2626d4b74ee6',
+			owner_id: USER_ID_TEST,
 			//file: [],
 		},
 		resolver: standardSchemaResolver(EditOrganizationSchema),

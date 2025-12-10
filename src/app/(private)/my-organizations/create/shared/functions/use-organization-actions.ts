@@ -24,10 +24,12 @@ export interface EditOrganizationArgs extends BaseActionArgs<EditOrganizationFor
 	organization_id: Organization['id'];
 }
 
+export type VerifySlugAvailabilityArgs = BaseActionArgs<Pick<CreateOrganizationForm, 'slug'>>;
+
 interface UseOrganizationActionsResult {
 	createOrganization: (args: BaseActionArgs<CreateOrganizationForm>) => Promise<void>;
 	editOrganization: (args: EditOrganizationArgs) => Promise<void>;
-	verifySlugAvailability: (args: BaseActionArgs<Pick<CreateOrganizationForm, 'slug'>>) => Promise<void>;
+	verifySlugAvailability: (args: VerifySlugAvailabilityArgs) => Promise<void>;
 }
 
 export function useOrganizationActions(): UseOrganizationActionsResult {
@@ -59,7 +61,7 @@ export function useOrganizationActions(): UseOrganizationActionsResult {
 		}
 	};
 
-	const verifySlugAvailability = async ({ form_data, on_fail, on_success }: BaseActionArgs<Pick<CreateOrganizationForm, 'slug'>>) => {
+	const verifySlugAvailability = async ({ form_data, on_fail, on_success }: VerifySlugAvailabilityArgs) => {
 		try {
 			const { slug } = await CreateOrganizationSchema.pick({ slug: true }).parseAsync(form_data);
 
