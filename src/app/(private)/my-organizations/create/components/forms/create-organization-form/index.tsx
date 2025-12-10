@@ -4,7 +4,7 @@ import { standardSchemaResolver } from '@hookform/resolvers/standard-schema';
 import { useMutation } from '@tanstack/react-query';
 import { LucideGlobe, LucidePencilRuler, LucideUser } from 'lucide-react';
 import { Controller, useForm } from 'react-hook-form';
-import { useOrganizationActions } from '@/app/(private)/my-organizations/[organizationId]/edit/shared/functions/use-organization-actions';
+import { useOrganizationActions } from '@/app/(private)/my-organizations/create/shared/functions/use-organization-actions';
 import { Button } from '@/components/ui/button';
 import { Field, FieldContent, FieldError, FieldGroup, FieldLabel, FieldLabelRequired } from '@/components/ui/field';
 import { InputGroup, InputGroupAddon, InputGroupInput, InputGroupText, InputGroupTextarea } from '@/components/ui/input-group';
@@ -23,6 +23,7 @@ export function CreateOrganizationFormulary() {
 			name: '',
 			description: '',
 			slug: '',
+			owner_id: '019afb5d-a7d1-735a-a495-2626d4b74ee6',
 			//file: [],
 		},
 		resolver: standardSchemaResolver(CreateOrganizationSchema),

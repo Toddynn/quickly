@@ -2,11 +2,10 @@
 
 import { LucideAudioWaveform, LucideCommand, LucideGalleryVerticalEnd } from 'lucide-react';
 import type * as React from 'react';
-import { NavMain } from '@/components/nav-main';
+import { NavRoutes } from '@/components/nav-main';
 import { TeamSwitcher } from '@/components/team-switcher';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader } from '@/components/ui/sidebar';
 import { APP_ROUTES } from '@/shared/constants/app-routes';
-import { NavProjects } from './nav-projects';
 
 // This is sample data.
 const data = {
@@ -32,33 +31,23 @@ const data = {
 			plan: 'Free',
 		},
 	],
-	navMain: Object.values(APP_ROUTES.PRIVATE.WITH_SUB_ROUTES).map((route) => ({
+	routes: Object.values(APP_ROUTES.PRIVATE).map((route) => ({
 		title: route.name,
 		url: route.path,
 		icon: route.icon,
-		isActive: false,
-		items: route.sub_routes?.map((subRoute) => ({
-			title: subRoute.name,
-			url: subRoute.path,
-			icon: subRoute.icon,
-		})),
-	})),
-	projects: Object.values(APP_ROUTES.PRIVATE.WITHOUT_SUB_ROUTES).map((route) => ({
-		title: route.name,
-		url: route.path,
-		icon: route.icon,
+		is_active: false,
 	})),
 };
 
-export function AppSidebar({  collapsible = 'icon', variant = 'inset', ...props }: React.ComponentProps<typeof Sidebar>) {
+export function AppSidebar({ collapsible = 'icon', variant = 'inset', ...props }: React.ComponentProps<typeof Sidebar>) {
 	return (
 		<Sidebar variant={variant} collapsible={collapsible} {...props}>
 			<SidebarHeader>
 				<TeamSwitcher teams={data.teams} />
 			</SidebarHeader>
 			<SidebarContent>
-				<NavMain items={data.navMain} />
-				<NavProjects projects={data.projects} />
+				<NavRoutes routes={data.routes} />
+				{/* <NavProjects projects={data.projects} /> */}
 			</SidebarContent>
 			<SidebarFooter>{/* <NavUser user={data.user} /> */}</SidebarFooter>
 			{/* <SidebarRail /> */}

@@ -1,4 +1,4 @@
-import { LucideCalendar, LucideCalendarCheck, LucideImage, LucideLayoutDashboard, LucideLock, LucideUser } from 'lucide-react';
+import { LucideBuilding, LucideCalendar, LucideImage, LucideLayoutDashboard, LucideLock, LucideUser } from 'lucide-react';
 
 export const APP_ROUTES = {
 	PUBLIC: {
@@ -29,26 +29,15 @@ export const APP_ROUTES = {
 		},
 	},
 	PRIVATE: {
-		WITH_SUB_ROUTES: {
-			SCHEDULING: {
-				name: 'Scheduling',
-				path: '/scheduling',
-				icon: LucideCalendar,
-				sub_routes: [
-					{
-						name: 'My Schedules',
-						path: '/scheduling/my-schedules',
-						icon: LucideCalendarCheck,
-					},
-				],
-			},
+		DASHBOARD: {
+			name: 'Dashboard',
+			path: '/dashboard',
+			icon: LucideLayoutDashboard,
 		},
-		WITHOUT_SUB_ROUTES: {
-			DASHBOARD: {
-				name: 'Dashboard',
-				path: '/dashboard',
-				icon: LucideLayoutDashboard,
-			},
+		MY_ORGANIZATIONS: {
+			name: 'Minhas Organizações',
+			path: '/my-organizations',
+			icon: LucideBuilding,
 		},
 	},
 } as const;

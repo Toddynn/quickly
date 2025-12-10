@@ -13,8 +13,8 @@ import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip
 import { generateSlugFromInput } from '@/shared/functions/generate-slug-from-input';
 import type { Organization } from '@/shared/functions/zustand/get-organization-by-id';
 import { get_organization_by_id_query_key } from '@/shared/functions/zustand/get-organization-by-id/query-key';
-import { type EditOrganizationArgs, useOrganizationActions } from '../../../shared/functions/use-organization-actions';
-import { type EditOrganizationForm, EditOrganizationSchema } from '../../../shared/schemas/edit-organization-schema';
+import { type EditOrganizationArgs, useOrganizationActions } from '../../../../../create/shared/functions/use-organization-actions';
+import { type EditOrganizationForm, EditOrganizationSchema } from '../../../../../create/shared/schemas/edit-organization-schema';
 //TODO:  validation of slug and rest of fields.
 
 export function EditOrganizationFormulary({ organization }: { organization: Organization }) {
@@ -26,6 +26,7 @@ export function EditOrganizationFormulary({ organization }: { organization: Orga
 			name: organization.name,
 			description: organization.description || '',
 			slug: organization.slug,
+			owner_id: '019afb5d-a7d1-735a-a495-2626d4b74ee6',
 			//file: [],
 		},
 		resolver: standardSchemaResolver(EditOrganizationSchema),
