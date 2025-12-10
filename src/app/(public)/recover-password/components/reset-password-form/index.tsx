@@ -24,6 +24,7 @@ export default function ResetPasswordFormulary() {
 	const searchParams = useSearchParams();
 	const reset_token = searchParams.get('reset_token') || '';
 	const email = searchParams.get('email') || '';
+
 	const [isSuccess, setIsSuccess] = useState(false);
 
 	const { resetPassword } = usePasswordResetActions();
@@ -45,6 +46,7 @@ export default function ResetPasswordFormulary() {
 			reset_token: reset_token,
 			new_password: '',
 		},
+		disabled: isResettingPassword,
 		resolver: standardSchemaResolver(ResetPasswordSchema),
 	});
 
