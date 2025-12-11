@@ -9,6 +9,7 @@ export const API_ROUTES = {
 		PUBLIC: {
 			GET_EXISTING_PASSWORD_RESET: '/password-reset/email/current',
 			GET_PASSWORD_RESET_BY_ID: '/password-reset/:password_reset_id',
+			GET_ORGANIZATION_INVITE_BY_ID: '/organization-invites/:invite_id',
 		},
 		PROTECTED: {},
 		AUTH: {},
@@ -34,8 +35,11 @@ export const API_ROUTES = {
 	PATCH: {
 		PRIVATE: {
 			EDIT_ORGANIZATION: '/organizations/:organization_id',
+			CANCEL_ORGANIZATION_INVITE: '/organization-invites/:invite_id/cancel',
 		},
-		PUBLIC: {},
+		PUBLIC: {
+			ACCEPT_ORGANIZATION_INVITE: '/organization-invites/:invite_id/accept',
+		},
 		PROTECTED: {},
 	},
 	DELETE: {

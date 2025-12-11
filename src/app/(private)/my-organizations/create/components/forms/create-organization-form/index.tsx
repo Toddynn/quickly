@@ -3,24 +3,37 @@
 import { standardSchemaResolver } from '@hookform/resolvers/standard-schema';
 import { useMutation } from '@tanstack/react-query';
 import { LucideGlobe, LucidePencilRuler, LucideUser } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 import { Controller, useForm } from 'react-hook-form';
+import { toast } from 'sonner';
 import { type VerifySlugAvailabilityArgs, useOrganizationActions } from '@/app/(private)/my-organizations/create/shared/functions/use-organization-actions';
 import { Button } from '@/components/ui/button';
 import { Field, FieldContent, FieldError, FieldGroup, FieldLabel, FieldLabelRequired } from '@/components/ui/field';
 import { InputGroup, InputGroupAddon, InputGroupInput, InputGroupText, InputGroupTextarea } from '@/components/ui/input-group';
 import { Spinner } from '@/components/ui/spinner';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
+import { APP_ROUTES } from '@/shared/constants/app-routes';
 import { USER_ID_TEST } from '@/shared/constants/user-id-test';
+import { buildAppRoute } from '@/shared/functions/build-app-route';
 import { generateSlugFromInput } from '@/shared/functions/generate-slug-from-input';
 import { type CreateOrganizationForm, CreateOrganizationSchema } from '../../../shared/schemas/create-organization-schema';
 //TODO:  validation of slug and rest of fields.
 
 export function CreateOrganizationFormulary() {
+	const { push } = useRouter();
 	const { createOrganization, verifySlugAvailability } = useOrganizationActions();
 	//const { clearAll: clearAllFiles, files } = useFiles();
 
 	const { mutateAsync: handleCreateOrganization, isPending: isCreatingOrganization } = useMutation({
-		mutationFn: async (form_data: CreateOrganizationForm) => await createOrganization({ form_data }),
+		mutationFn: async (form_data: CreateOrganizationForm) =>
+			await createOrganization({
+				form_data,
+				on_success: () => {
+					toast.success('Organização criada com sucesso!');
+					reset();
+					push(buildAppRoute(APP_ROUTES.PRIVATE.MY_ORGANIZATIONS.path));
+				},
+			}),
 	});
 
 	const { mutateAsync: handleVerifySlugAvailability, isPending: isVerifyingSlugAvailability } = useMutation({

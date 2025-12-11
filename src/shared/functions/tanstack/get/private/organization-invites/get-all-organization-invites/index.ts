@@ -1,6 +1,7 @@
 'use client';
 
 import { API_ROUTES } from '@/shared/constants/api-routes';
+import type { OrganizationInviteStatus } from '@/shared/constants/organization-invite-status';
 import { buildApiRoute } from '@/shared/functions/build-api-route';
 import type { DefaultPaginatedResponse } from '@/shared/interfaces/default-paginated-response';
 import type { DefaultPaginationParams } from '@/shared/interfaces/default-pagination-params';
@@ -11,7 +12,7 @@ export interface OrganizationInvite {
 	email: string;
 	organization_id: string;
 	inviter_id: string;
-	status: string;
+	status: OrganizationInviteStatus;
 	expiration_date: string;
 	created_at: string;
 }
@@ -36,4 +37,3 @@ export default async function privateGetAllOrganizationInvites({
 
 	return res.data;
 }
-

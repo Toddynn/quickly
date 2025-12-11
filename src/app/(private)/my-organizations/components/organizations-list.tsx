@@ -11,8 +11,12 @@ import { USER_ID_TEST } from '@/shared/constants/user-id-test';
 import { usePrivateInfiniteGetAllOrganizationsPaginated } from '@/shared/functions/tanstack/get/private/organizations/get-all-organizations/use-index';
 import type { Organization } from '@/shared/functions/zustand/get-organization-by-id';
 
+interface OrganizationsListProps {
+	search?: string;
+}
+
 // TODO: Trocar user_id para pegar do current user quando tiver login implementado
-export default function OrganizationsList() {
+export default function OrganizationsList({ search }: OrganizationsListProps) {
 	const {
 		data: Pagination,
 		isLoading,
@@ -22,6 +26,7 @@ export default function OrganizationsList() {
 		error,
 	} = usePrivateInfiniteGetAllOrganizationsPaginated({
 		user_id: USER_ID_TEST,
+		search: search || undefined,
 	});
 
 	const renderItem = useCallback((organization: Organization, _index: number, _pageIndex: number) => {

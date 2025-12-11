@@ -22,8 +22,13 @@ interface CreateOrganizationInviteArgs extends BaseCallbackArgs {
 	inviter_id: string;
 }
 
+interface CancelOrganizationInviteArgs extends BaseCallbackArgs {
+	invite_id: string;
+}
+
 interface UseOrganizationInviteActionsResult {
 	createOrganizationInvite: (args: CreateOrganizationInviteArgs) => Promise<void>;
+	cancelOrganizationInvite: (args: CancelOrganizationInviteArgs) => Promise<void>;
 }
 
 export function useOrganizationInviteActions(): UseOrganizationInviteActionsResult {
@@ -55,8 +60,26 @@ export function useOrganizationInviteActions(): UseOrganizationInviteActionsResu
 		}
 	};
 
+	const cancelOrganizationInvite = async ({
+		invite_id,
+		on_fail,
+		on_success,
+		query_keys_to_invalidate,
+	}: CancelOrganizationInviteArgs) => {
+		try {
+			await api.patch(buildApiRoute(API_ROUTES.PATCH.PRIVATE.CANCEL_ORGANIZATION_INVITE, { invite_id }));
+
+			if (query_keys_to_invalidate) await invalidateQueries({ query_client, query_keys_to_invalidate });
+			on_success?.();
+		} catch (err) {
+			on_fail?.();
+			handleErrorTreatment(err);
+		}
+	};
+
 	return {
 		createOrganizationInvite,
+		cancelOrganizationInvite,
 	};
 }
 

@@ -14,6 +14,7 @@ export function usePrivateInfiniteGetAllOrganizationsPaginated({ page = 1, limit
 				page: pageParam,
 				limit,
 				user_id,
+				search,
 			}),
 		placeholderData: keepPreviousData,
 		initialPageParam: Number(page),
