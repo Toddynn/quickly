@@ -49,13 +49,13 @@ export const env = clientEnvSchema.parse(rawClientEnv);
 // ----- Derivados
 export const is_production = process.env.NODE_ENV === 'production';
 
-export const app_url = is_production
-	? `${env.NEXT_PUBLIC_APP_PROTOCOL}://${env.NEXT_PUBLIC_APP_DOMAIN}`
-	: `${env.NEXT_PUBLIC_APP_PROTOCOL}://${env.NEXT_PUBLIC_APP_DOMAIN}:${env.NEXT_PUBLIC_APP_PORT}`;
+const withPort = (protocol: string, domain: string, port?: string) => {
+	return port ? `${protocol}://${domain}:${port}` : `${protocol}://${domain}`;
+};
 
-export const backend_url = is_production
-	? `${env.NEXT_PUBLIC_BACKEND_PROTOCOL}://${env.NEXT_PUBLIC_BACKEND_DOMAIN}`
-	: `${env.NEXT_PUBLIC_BACKEND_PROTOCOL}://${env.NEXT_PUBLIC_BACKEND_DOMAIN}:${env.NEXT_PUBLIC_BACKEND_PORT}`;
+export const app_url = withPort(env.NEXT_PUBLIC_APP_PROTOCOL, env.NEXT_PUBLIC_APP_DOMAIN, env.NEXT_PUBLIC_APP_PORT);
+
+export const backend_url = withPort(env.NEXT_PUBLIC_BACKEND_PROTOCOL, env.NEXT_PUBLIC_BACKEND_DOMAIN, env.NEXT_PUBLIC_BACKEND_PORT);
 
 export const APP_METADATA = {
 	name: env.NEXT_PUBLIC_APP_NAME,
