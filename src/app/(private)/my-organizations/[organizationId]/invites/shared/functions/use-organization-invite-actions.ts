@@ -60,12 +60,7 @@ export function useOrganizationInviteActions(): UseOrganizationInviteActionsResu
 		}
 	};
 
-	const cancelOrganizationInvite = async ({
-		invite_id,
-		on_fail,
-		on_success,
-		query_keys_to_invalidate,
-	}: CancelOrganizationInviteArgs) => {
+	const cancelOrganizationInvite = async ({ invite_id, on_fail, on_success, query_keys_to_invalidate }: CancelOrganizationInviteArgs) => {
 		try {
 			await api.patch(buildApiRoute(API_ROUTES.PATCH.PRIVATE.CANCEL_ORGANIZATION_INVITE, { invite_id }));
 
@@ -82,4 +77,3 @@ export function useOrganizationInviteActions(): UseOrganizationInviteActionsResu
 		cancelOrganizationInvite,
 	};
 }
-

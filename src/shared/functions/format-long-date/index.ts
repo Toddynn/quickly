@@ -20,4 +20,3 @@ export const default_long_date_with_hour_options: Intl.DateTimeFormatOptions = {
 export const formatLongDate = ({ date, options = default_long_date_options }: FormatLongDateProps) => {
 	return new Date(date).toLocaleDateString('pt-BR', options);
 };
-

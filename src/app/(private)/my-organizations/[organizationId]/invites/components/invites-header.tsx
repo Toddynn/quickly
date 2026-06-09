@@ -36,4 +36,3 @@ export function InvitesHeader({ search, onSearchChange, onInviteClick }: Invites
 		</div>
 	);
 }
-

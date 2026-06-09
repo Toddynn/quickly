@@ -1,12 +1,12 @@
 'use client';
 
+import type { QueryKey } from '@tanstack/react-query';
 import { API_ROUTES } from '@/shared/constants/api-routes';
 import { buildApiRoute } from '@/shared/functions/build-api-route';
 import { getQueryClient } from '@/shared/functions/get-query-client';
 import { handleErrorTreatment } from '@/shared/functions/handle-error-treatment';
 import { invalidateQueries } from '@/shared/functions/invalidate-queries';
 import { api } from '@/shared/lib/api';
-import type { QueryKey } from '@tanstack/react-query';
 
 interface BaseCallbackArgs {
 	on_success?: () => void;
@@ -26,13 +26,7 @@ interface UseAcceptOrganizationInviteActionsResult {
 export function useAcceptOrganizationInviteActions(): UseAcceptOrganizationInviteActionsResult {
 	const query_client = getQueryClient();
 
-	const acceptOrganizationInvite = async ({
-		invite_id,
-		user_id,
-		on_fail,
-		on_success,
-		query_keys_to_invalidate,
-	}: AcceptOrganizationInviteArgs) => {
+	const acceptOrganizationInvite = async ({ invite_id, user_id, on_fail, on_success, query_keys_to_invalidate }: AcceptOrganizationInviteArgs) => {
 		try {
 			await api.patch(buildApiRoute(API_ROUTES.PATCH.PUBLIC.ACCEPT_ORGANIZATION_INVITE, { invite_id }), {
 				user_id,
@@ -50,4 +44,3 @@ export function useAcceptOrganizationInviteActions(): UseAcceptOrganizationInvit
 		acceptOrganizationInvite,
 	};
 }
-

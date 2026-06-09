@@ -25,4 +25,3 @@ export function usePrivateInfiniteGetAllOrganizationInvitesPaginated({
 		getNextPageParam: ({ total_pages, page }) => getNextPageParam({ total_pages, page }),
 	});
 }
-

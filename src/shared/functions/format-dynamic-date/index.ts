@@ -29,15 +29,9 @@ interface FormatDynamicDateProps {
  *   formatação da data
  * @returns {string} A data formatada dinamicamente
  */
-export default function formatDynamicDate({
-	date,
-	diffLimit = 24,
-	formatStr = `'em' dd/MM/yyyy 'às' HH:mm`,
-	locale = ptBR,
-}: FormatDynamicDateProps): string {
+export default function formatDynamicDate({ date, diffLimit = 24, formatStr = `'em' dd/MM/yyyy 'às' HH:mm`, locale = ptBR }: FormatDynamicDateProps): string {
 	const formattedDate = new Date(date);
 	const hoursDiff = differenceInHours(new Date(), formattedDate);
 
 	return hoursDiff < diffLimit ? formatDistanceToNowStrict(formattedDate, { addSuffix: true, locale }) : `${format(formattedDate, formatStr, { locale })}`;
 }
-

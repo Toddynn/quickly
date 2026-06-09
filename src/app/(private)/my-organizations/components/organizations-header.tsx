@@ -38,4 +38,3 @@ export function OrganizationsHeader({ search, onSearchChange }: OrganizationsHea
 		</div>
 	);
 }
-
